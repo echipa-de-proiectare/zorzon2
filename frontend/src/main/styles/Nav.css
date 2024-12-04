@@ -1,0 +1,16 @@
+.navbar-end.navbar-menu.is-active {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-end.navbar-menu.is-active > .navbar-start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+html:has(.navbar-end.navbar-menu.is-active) {
+  overflow: hidden;
+}

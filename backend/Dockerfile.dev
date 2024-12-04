@@ -1,0 +1,19 @@
+
+FROM node:18 AS development
+
+WORKDIR /app
+
+# Copy package files
+COPY backend/package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy source code
+COPY backend/ ./
+
+# Expose port used by Strapi
+EXPOSE 1337
+
+# Run Strapi in development mode
+CMD ["npm", "run", "develop"]

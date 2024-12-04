@@ -1,0 +1,57 @@
+services:
+  backend:
+    container_name: zorzon_backend
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile.dev
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    ports:
+      - "1337:1337"
+    env_file:
+      - ./backend/.env
+    environment:
+      DATABASE_HOST: zorzon_db
+    depends_on:
+      - db
+    networks:
+      - zorzon
+
+  frontend:
+    container_name: zorzon_frontend
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile.dev
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - ./frontend/.env:/opt/app/.env
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
+    networks:
+      - zorzon
+
+  db:
+    container_name: zorzon_db
+    image: postgres:15
+    platform: linux/amd64 #for platform error on Apple M1 chips
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backup:/docker-entrypoint-initdb.d # Mount backup directory to init scripts
+    environment:
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: strapi
+      POSTGRES_DB: strapi
+    networks:
+      - zorzon
+
+volumes:
+  postgres_data:
+
+networks:
+  zorzon:
+    driver: bridge
