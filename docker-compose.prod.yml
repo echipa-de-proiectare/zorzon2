@@ -25,7 +25,7 @@ services:
     build:
       context: .
       dockerfile: ./frontend/Dockerfile.prod
-    platform: linux/arm64 # Ensuring compatibility with ARM-based systems
+    platform: linux/amd64 # Ensuring compatibility with ARM-based systems
     volumes:
       - ./frontend:/app
       - /app/node_modules
