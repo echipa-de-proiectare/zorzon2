@@ -3,16 +3,18 @@ services:
     container_name: zorzon_backend
     build:
       context: .backend
-      dockerfile: ./backend/Dockerfile.dev
+      dockerfile: ./backend/Dockerfile.prod
+    platform: linux/amd64 #for platform error on Apple M1 chips
     volumes:
       - ./backend:/app
       - /app/node_modules
     ports:
-      - "1337:1337"
+      - "1338:1337" # After rev proxy caddy do port exposed for internal communication
     env_file:
       - ./backend/.env
     environment:
       DATABASE_HOST: zorzon_db
+      NODE_ENV: production # Ensure it's running in production mode
     depends_on:
       - db
     networks:
@@ -21,19 +23,22 @@ services:
   frontend:
     container_name: zorzon_frontend
     build:
-      context: .frontend
-      dockerfile: ./frontend/Dockerfile.dev
+      context: ./frontend
+      dockerfile: ./frontend/Dockerfile.prod
+    platform: linux/arm64 # Ensuring compatibility with ARM-based systems
     volumes:
       - ./frontend:/app
       - /app/node_modules
       - ./frontend/.env:/opt/app/.env
     ports:
-      - "5173:5173"
+      - "5174:5173"
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
     restart: unless-stopped
     networks:
       - zorzon
+    depends_on:
+      - backend
 
   db:
     container_name: zorzon_db
