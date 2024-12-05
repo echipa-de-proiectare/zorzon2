@@ -27,7 +27,7 @@ services:
       - ./frontend:/app
       - ./frontend/.env:/opt/app/.env
     ports:
-      - "5174:5174"
+      - "5174:80"
     environment:
       - NODE_ENV=production
     restart: unless-stopped
