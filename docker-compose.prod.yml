@@ -2,8 +2,8 @@ services:
   backend:
     container_name: zorzon_backend
     build:
-      context: .
-      dockerfile: ./backend/Dockerfile.prod
+      context: ./backend
+      dockerfile: Dockerfile.prod
     platform: linux/amd64 #for platform error on Apple M1 chips
     ports:
       - "1338:1338" # After rev proxy caddy do port exposed for internal communication
@@ -20,12 +20,11 @@ services:
   frontend:
     container_name: zorzon_frontend
     build:
-      context: .
-      dockerfile: ./frontend/Dockerfile.prod
+      context: ./frontend
+      dockerfile: Dockerfile.prod
     platform: linux/amd64 # Ensuring compatibility with ARM-based systems
     volumes:
       - ./frontend:/app
-      - /app/node_modules
       - ./frontend/.env:/opt/app/.env
     ports:
       - "5174:5174"
