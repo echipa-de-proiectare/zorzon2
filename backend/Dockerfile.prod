@@ -1,11 +1,13 @@
-# frontend/Dockerfile for Production
-FROM node:18-bullseye AS production
+
+
+# backend/Dockerfile for Production
+FROM node:18-alpine
 
 WORKDIR /app
 
 ENV NODE_ENV=production
 
-COPY backend/package.json backend/package-lock.json ./
+COPY package.json package-lock.json ./
 RUN npm install --production
 
 COPY . .
