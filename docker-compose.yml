@@ -2,13 +2,13 @@ services:
   backend:
     container_name: zorzon_backend
     build:
-      context: .backend
+      context: .
       dockerfile: ./backend/Dockerfile.dev
     volumes:
       - ./backend:/app
       - /app/node_modules
     ports:
-      - "1338:1337"
+      - "1338:1338"
     env_file:
       - ./backend/.env
     environment:
@@ -21,14 +21,14 @@ services:
   frontend:
     container_name: zorzon_frontend
     build:
-      context: .frontend
+      context: .
       dockerfile: ./frontend/Dockerfile.dev
     volumes:
       - ./frontend:/app
       - /app/node_modules
       - ./frontend/.env:/opt/app/.env
     ports:
-      - "5174:5173"
+      - "5174:5174"
     environment:
       - NODE_ENV=development
     restart: unless-stopped
@@ -46,6 +46,8 @@ services:
       POSTGRES_USER: strapi
       POSTGRES_PASSWORD: strapi
       POSTGRES_DB: strapi
+    ports:
+      - "5433:5432"
     networks:
       - zorzon
 
