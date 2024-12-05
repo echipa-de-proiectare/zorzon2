@@ -13,7 +13,7 @@ RUN npm install
 COPY backend/ ./
 
 # Expose port used by Strapi
-EXPOSE 1337
+EXPOSE 1338
 
 # Run Strapi in development mode
 CMD ["npm", "run", "develop"]

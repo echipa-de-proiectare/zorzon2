@@ -8,7 +8,7 @@ services:
       - ./backend:/app
       - /app/node_modules
     ports:
-      - "1337:1337"
+      - "1338:1337"
     env_file:
       - ./backend/.env
     environment:
@@ -28,7 +28,7 @@ services:
       - /app/node_modules
       - ./frontend/.env:/opt/app/.env
     ports:
-      - "5173:5173"
+      - "5174:5173"
     environment:
       - NODE_ENV=development
     restart: unless-stopped
