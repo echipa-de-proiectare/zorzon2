@@ -1,4 +1,18 @@
 services:
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    platform: linux/arm64 # Ensuring compatibility with ARM-based systems
+    networks:
+      - zorzon
+    ports:
+      - "80:80" # HTTP
+      - "443:443" # HTTPS
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile # Your Caddyfile configuration
+      - caddy_data:/data # Persistent storage for SSL certificates
+      - caddy_config:/config # Caddy configuration data
+
   backend:
     container_name: zorzon_backend
     build:
@@ -7,8 +21,8 @@ services:
     platform: linux/arm64 #for platform error on Apple M1 chips
     volumes:
       - strapi_media:/app/public/uploads # Persistent storage for media library
-    ports:
-      - "1338:1338" # After rev proxy caddy do port exposed for internal communication
+    expose:
+      - "1338" # Port exposed for internal communication
     env_file:
       - ./backend/.env
     environment:
@@ -28,8 +42,8 @@ services:
     volumes:
       - ./frontend:/app
       - ./frontend/.env:/opt/app/.env
-    ports:
-      - "5174:80"
+    expose:
+      - "80" # Port exposed for internal communication
     environment:
       - NODE_ENV=production
     restart: unless-stopped
