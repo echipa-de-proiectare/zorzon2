@@ -4,7 +4,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
-    platform: linux/amd64 #for platform error on Apple M1 chips
+    platform: linux/arm64 #for platform error on Apple M1 chips
     ports:
       - "1338:1338" # After rev proxy caddy do port exposed for internal communication
     env_file:
@@ -22,7 +22,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
-    platform: linux/amd64 # Ensuring compatibility with ARM-based systems
+    platform: linux/arm64 # Ensuring compatibility with ARM-based systems
     volumes:
       - ./frontend:/app
       - ./frontend/.env:/opt/app/.env
@@ -39,7 +39,7 @@ services:
   db:
     container_name: zorzon_db
     image: postgres:15
-    platform: linux/amd64 #for platform error on Apple M1 chips
+    platform: linux/arm64 #for platform error on Apple M1 chips
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./backup:/docker-entrypoint-initdb.d # Mount backup directory to init scripts

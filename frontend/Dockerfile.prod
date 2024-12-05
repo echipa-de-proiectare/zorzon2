@@ -1,4 +1,3 @@
-
 # frontend/Dockerfile for Production
 FROM node:18-alpine AS builder
 

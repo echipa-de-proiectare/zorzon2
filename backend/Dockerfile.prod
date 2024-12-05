@@ -1,5 +1,5 @@
-# backend Dockerfile for Production
-FROM node:18-bullseye AS production
+# backend/Dockerfile for Production
+FROM node:18-alpine
 
 WORKDIR /app
 
