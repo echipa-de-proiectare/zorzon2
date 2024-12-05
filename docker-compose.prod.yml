@@ -56,6 +56,7 @@ services:
 
 volumes:
   postgres_data:
+  strapi_media: # Add this to declare the strapi_media volume
 
 networks:
   zorzon:
