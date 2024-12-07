@@ -6,6 +6,7 @@ function ProjectCard({ project }) {
       <div className="card-image">
         <figure className="image is-3by4">
           <img
+            loading="lazy"
             src={`${API_URL}${project.cover.formats.thumbnail.url}`} // Fallback image for older browsers
             srcSet={`
                     ${API_URL}${project.cover.formats.thumbnail.url} 117w,

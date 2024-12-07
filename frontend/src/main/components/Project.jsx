@@ -20,6 +20,7 @@ function Project() {
             <div className={`cell`} key={image.id}>
               <figure className="image">
                 <img
+                  loading="lazy"
                   src={`${API_URL}${image.formats.thumbnail.url}`} // Fallback image for older browsers
                   srcSet={`
                     ${API_URL}${image.formats.thumbnail.url} 117w,
