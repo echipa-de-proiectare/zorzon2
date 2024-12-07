@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import ProjectCard from "./ProjectCard";
 import { useFetchProjectsSpotlight } from "../hooks/useFetchProjects";
+import LoadingIcon from "../../elements/loadingIcon";
 
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
@@ -8,7 +9,7 @@ function Homepage({ about }) {
   const { loading, error, projects } = useFetchProjectsSpotlight();
 
   if (error) return <p>A network error was encountered</p>;
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingIcon />;
 
   return (
     <div className="homepage">

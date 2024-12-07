@@ -17,8 +17,12 @@ const messageSchema = yup.object().shape({
   city: yup.string().trim().required("City is required"),
   phone: yup
     .string()
-    .nullable()
-    .matches(/^[0-9]+$/, "Phone must be numeric"),
+    .nullable() // Allows null values
+    .transform((value) => (value === "" ? null : value)) // Converts empty strings to null
+    .matches(/^[0-9]+$/, {
+      message: "Numarul de telefon trebuie sa contina doar cifre",
+      excludeEmptyString: true, // Skips validation for empty strings
+    }),
   message: yup.string().trim().required("Message is required"),
 });
 

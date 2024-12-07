@@ -16,7 +16,7 @@ module.exports = createCoreController("api::project.project", ({ strapi }) => ({
         limit: 4, // Limit the results to the first 4
         populate: {
           cover: {
-            fields: ["url"], // Include only the URL field in the cover relation
+            fields: ["formats", "url"],
           },
         },
       }
@@ -27,7 +27,7 @@ module.exports = createCoreController("api::project.project", ({ strapi }) => ({
       id: project.id,
       name: project.name,
       location: project.location,
-      coverUrl: project.cover?.url || null, // Handle cases where cover might be null
+      cover: project.cover || null,
     }));
 
     return this.transformResponse(transformedProjects);
@@ -41,7 +41,7 @@ module.exports = createCoreController("api::project.project", ({ strapi }) => ({
         sort: { createdAt: "desc" }, // Sort by createdAt in descending order
         populate: {
           cover: {
-            fields: ["url"], // Include only the URL field in the cover relation
+            fields: ["formats", "url"],
           },
         },
       }
@@ -52,7 +52,7 @@ module.exports = createCoreController("api::project.project", ({ strapi }) => ({
       id: project.id,
       name: project.name,
       location: project.location,
-      coverUrl: project.cover?.url || null, // Handle cases where cover might be null
+      cover: project.cover || null,
     }));
 
     return this.transformResponse(transformedProjects);
@@ -67,11 +67,8 @@ module.exports = createCoreController("api::project.project", ({ strapi }) => ({
       {
         fields: ["name", "location"], // Include only the necessary fields
         populate: {
-          cover: {
-            fields: ["url"], // Include only the URL field in the cover relation
-          },
           images: {
-            fields: ["url"], // Include only the URL field in the cover relation
+            fields: ["formats", "url"], // Include only the URL field in the cover relation
           },
         },
       }
@@ -83,7 +80,7 @@ module.exports = createCoreController("api::project.project", ({ strapi }) => ({
       name: project.name,
       location: project.location,
       images: project.images,
-      coverUrl: project.cover?.url || null, // Handle cases where cover might be null
+      cover: project.cover || null, // Handle cases where cover might be null
     };
 
     return this.transformResponse(transformedProject);

@@ -12,8 +12,12 @@ const validationSchema = yup.object({
   city: yup.string().trim().required("Orasul este obligatoriu"),
   phone: yup
     .string()
-    .nullable()
-    .matches(/^[0-9]+$/, "Numarul de telefon trebuie sa contina doar cifre"),
+    .nullable() // Allows null values
+    .transform((value) => (value === "" ? null : value)) // Converts empty strings to null
+    .matches(/^[0-9]+$/, {
+      message: "Numarul de telefon trebuie sa contina doar cifre",
+      excludeEmptyString: true, // Skips validation for empty strings
+    }),
   message: yup.string().trim().required("Mesajul este obligatoriu"),
 });
 
@@ -123,7 +127,7 @@ const Contact = () => {
       <form onSubmit={handleSubmit}>
         <div className="field">
           <label htmlFor="name" className="label">
-            Nume (obligatoriu)
+            Nume <span className="has-text-danger">*</span>
           </label>
           <div className="control">
             <input
@@ -140,7 +144,7 @@ const Contact = () => {
         </div>
         <div className="field">
           <label htmlFor="city" className="label">
-            Oras (obligatoriu)
+            Oras <span className="has-text-danger">*</span>
           </label>
           <div className="control">
             <input
@@ -173,7 +177,7 @@ const Contact = () => {
         </div>
         <div className="field">
           <label htmlFor="message" className="label">
-            Mesaj (obligatoriu)
+            Mesaj <span className="has-text-danger">*</span>
           </label>
           <div className="control">
             <textarea

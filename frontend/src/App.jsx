@@ -5,13 +5,13 @@ import Homepage from "./main/components/Homepage";
 import Contact from "./main/components/Contact";
 import Portfolio from "./main/components/Portfolio";
 import Project from "./main/components/Project";
+import LoadingIcon from "./elements/loadingIcon";
 
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
 function App() {
   const { about, loading, error } = useFetchAbout();
-
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingIcon />;
   if (error) return <p>Error: {error}</p>;
 
   // Extract the logo_secondary URL
