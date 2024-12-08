@@ -38,7 +38,9 @@ const Nav = ({ about }) => {
 
         <a
           role="button"
-          className={`navbar-burger ${isOpen ? "is-active" : ""} is-white`}
+          className={`navbar-burger ${
+            isOpen ? "is-active" : ""
+          } has-text-black`}
           aria-label="menu"
           aria-expanded={isOpen ? "true" : "false"}
           data-target="navbar"
