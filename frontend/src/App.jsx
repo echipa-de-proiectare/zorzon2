@@ -6,10 +6,18 @@ import Contact from "./main/components/Contact";
 import Portfolio from "./main/components/Portfolio";
 import Project from "./main/components/Project";
 import LoadingIcon from "./elements/loadingIcon";
+import ScrollToTop from "./main/components/utility/ScrollToTop";
+import { useEffect } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
 function App() {
+  useEffect(() => {
+    // Enforce light mode
+    document.documentElement.classList.remove("dark-mode");
+    document.documentElement.setAttribute("data-theme", "light");
+  }, []);
+
   const { about, loading, error } = useFetchAbout();
   if (loading) return <LoadingIcon />;
   if (error) return <p>Error: {error}</p>;
@@ -29,6 +37,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<MainAppLayout about={about} />}>
           <Route index element={<Homepage about={about} />} />
