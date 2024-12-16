@@ -28,7 +28,7 @@ services:
     environment:
       DATABASE_HOST: zorzon_db
       NODE_ENV: production # Ensure it's running in production mode
-      URL: https://zorzon-admin.costico.eu # The URL of your Strapi backend
+      URL: https://admin.zorzon.com.ro # The URL of your Strapi backend
       TRUST_PROXY: "true" # Make sure Strapi trusts the reverse proxy, as a string
     depends_on:
       - db
