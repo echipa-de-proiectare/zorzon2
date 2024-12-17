@@ -1,9 +1,9 @@
 # Serve the frontend
-zorzon.costico.eu {
+zorzon.com.ro {
     reverse_proxy frontend:80  # Proxy to the 'frontend' container
 }
 
 # Proxy requests to Strapi
-zorzon-admin.costico.eu {
+admin.zorzon.com.ro {
     reverse_proxy backend:1338  # Proxy to the 'backend' container
 }
