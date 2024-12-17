@@ -64,6 +64,11 @@ const Nav = ({ about }) => {
           <Link className="navbar-item" to="/contact" onClick={toggleIsOpen}>
             CONTACT
           </Link>
+          <div className="navbar-item">
+            <a className="button" href={`${API_URL}/api/connect/google`}>
+              <strong>Log in</strong>
+            </a>
+          </div>
         </div>
       </div>
     </nav>

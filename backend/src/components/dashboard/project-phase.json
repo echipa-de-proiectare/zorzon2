@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_dashboard_project_phases",
+  "info": {
+    "displayName": "project-phase",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "item": {
+      "type": "component",
+      "repeatable": true,
+      "component": "dashboard.phase-item"
+    }
+  }
+}

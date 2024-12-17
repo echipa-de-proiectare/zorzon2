@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useFetchProjectById } from "../hooks/useFetchProjects";
 import LoadingIcon from "../../elements/loadingIcon";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
 function Project() {

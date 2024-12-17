@@ -7,7 +7,13 @@ import Portfolio from "./main/components/Portfolio";
 import Project from "./main/components/Project";
 import LoadingIcon from "./elements/loadingIcon";
 import ScrollToTop from "./main/components/utility/ScrollToTop";
+import GoogleAuthRedirect from "./user/utility/GoogleAuthRedirect";
+import UserAppLayout from "./layouts/UserAppLayout";
 import { useEffect } from "react";
+import { UserProvider } from "./user/utility/UserContext";
+import { Protector } from "./user/utility/helpers";
+import UserHome from "./user/components/UserHome";
+import UserProject from "./user/components/UserProject";
 
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
@@ -36,17 +42,33 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<MainAppLayout about={about} />}>
-          <Route index element={<Homepage about={about} />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="portofoliu" element={<Portfolio />} />
-          <Route path="portofoliu/:id" element={<Project />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<MainAppLayout about={about} />}>
+            <Route index element={<Homepage about={about} />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="portofoliu" element={<Portfolio />} />
+            <Route path="portofoliu/:id" element={<Project />} />
+            <Route
+              path="connect/google/callback/*"
+              element={<GoogleAuthRedirect />}
+            />
+          </Route>
+          <Route path="/user/" element={<UserAppLayout />}>
+            <Route
+              path="profile"
+              element={<Protector Component={<UserHome />} />}
+            />
+            <Route
+              path="project"
+              element={<Protector Component={<UserProject />} />}
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </UserProvider>
   );
 }
 
