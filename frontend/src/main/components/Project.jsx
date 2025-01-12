@@ -1,7 +1,18 @@
 import { useParams } from "react-router-dom";
 import { useFetchProjectById } from "../hooks/useFetchProjects";
 import LoadingIcon from "../../elements/loadingIcon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+// import required modules
+import { Pagination } from "swiper/modules";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "../styles/Project.css";
+
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
 function Project() {
@@ -18,7 +29,7 @@ function Project() {
 
   const closeModal = () => {
     setIsModalActive(false);
-    setActiveImage(null);
+    setActiveImage(0);
   };
 
   if (error) return <p>A network error was encountered</p>;
@@ -31,8 +42,8 @@ function Project() {
       <div className="columns is-multiline">
         {project.images.map((image) => (
           <div
-            className="column is-full-mobile is-full-tablet is-half-desktop"
             key={image.id}
+            className="column is-full-mobile is-full-tablet is-half-desktop"
           >
             <figure className="image" onClick={() => openModal(image)}>
               <img
@@ -59,16 +70,30 @@ function Project() {
         ))}
       </div>
       {/* Full-Screen Modal */}
-      {activeImage && (
+      {isModalActive && (
         <div className={`modal ${isModalActive ? "is-active" : ""}`}>
           <div className="modal-background" onClick={closeModal}></div>
           <div className="modal-content">
-            <figure className="image ">
-              <img
-                src={`${API_URL}${activeImage.url}`}
-                alt={activeImage.name || "Full screen image"}
-              />
-            </figure>
+            <Swiper
+              initialSlide={activeImage} // Start from the clicked image
+              spaceBetween={30}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              {project.images.map((image) => (
+                <SwiperSlide key={image.id}>
+                  <figure className="image">
+                    <img
+                      src={`${API_URL}${image.url}`}
+                      alt={image.name || "Full screen image"}
+                    />
+                  </figure>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
           <button
             className="modal-close is-large"
