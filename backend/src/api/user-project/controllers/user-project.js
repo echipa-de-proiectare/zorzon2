@@ -63,6 +63,7 @@ module.exports = createCoreController(
                     item: {
                       filters: { id: iid }, // Filter item by ID
                       populate: {
+                        fields: ["url"],
                         document: {
                           fields: ["url", "ext", "formats"],
                         },

@@ -25,6 +25,7 @@ export interface DashboardPhaseItem extends Struct.ComponentSchema {
       true
     >;
     name: Schema.Attribute.String;
+    url: Schema.Attribute.String;
   };
 }
 
