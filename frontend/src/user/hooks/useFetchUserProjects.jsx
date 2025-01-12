@@ -79,7 +79,7 @@ export const useFetchProjectPhase = (viewPhaseId, viewItemId) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        const fetchedData = data.data[0].phase[0].item[0].document;
+        const fetchedData = data.data[0].phase[0].item[0];
         setProjectPhase(fetchedData);
         console.log(fetchedData);
       })

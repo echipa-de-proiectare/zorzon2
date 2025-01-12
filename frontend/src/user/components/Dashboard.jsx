@@ -27,10 +27,20 @@ const Dashboard = ({ viewItemId, setViewItemId, setViewPhaseId }) => {
       <p className="menu-label">Notifications</p>
       <ul className="menu-list">
         <li>
-          <a onClick={handleProfileClick}>N1</a>
+          <a
+            className="has-background-inherit m-0 p-0"
+            onClick={handleProfileClick}
+          >
+            N1
+          </a>
         </li>
         <li>
-          <a onClick={handleProfileClick}>N2</a>
+          <a
+            className="has-background-inherit m-0 p-0"
+            onClick={handleProfileClick}
+          >
+            N2
+          </a>
         </li>
       </ul>
       {projects && (
@@ -52,15 +62,24 @@ const Dashboard = ({ viewItemId, setViewItemId, setViewPhaseId }) => {
       <p className="menu-label">Profile</p>
       <ul className="menu-list">
         <li>
-          <Link to="/user/profile" onClick={handleProfileClick}>
+          <Link
+            to="/user/profile"
+            className="has-background-inherit m-0 p-0"
+            onClick={handleProfileClick}
+          >
             User Profile
           </Link>
         </li>
         <li>
-          <a onClick={handleProfileClick}>P2</a>
+          <a
+            className="has-background-inherit m-0 p-0"
+            onClick={handleProfileClick}
+          >
+            P2
+          </a>
         </li>
       </ul>
-      <Link className="button" to="/" onClick={handleLogoutClick}>
+      <Link className="button mt-5" to="/" onClick={handleLogoutClick}>
         <strong>Log out</strong>
       </Link>
     </aside>

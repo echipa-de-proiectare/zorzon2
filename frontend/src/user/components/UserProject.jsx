@@ -5,6 +5,7 @@ import { useOutletContext } from "react-router-dom";
 import PDFViewer from "./PDFViewer";
 import { useFetchProjectPhase } from "../hooks/useFetchUserProjects";
 import ImageViewer from "./ImageViewer";
+import ThreeDViewer from "./ThreeDViewer";
 
 const UserProject = () => {
   const { viewItemId, viewPhaseId } = useOutletContext();
@@ -30,12 +31,12 @@ const UserProject = () => {
 
   return (
     <>
-      {projectPhase[0].ext === ".pdf" ? (
-        <PDFViewer document={projectPhase} />
+      {!projectPhase.document ? (
+        <ThreeDViewer document={projectPhase.url} />
+      ) : projectPhase.document[0].ext === ".pdf" ? (
+        <PDFViewer document={projectPhase.document} />
       ) : (
-        /* ) : document.ext === ".obj" || document.ext === ".mtl" ? (
-        <O3DViewer document={projectPhase.document} ext={document.ext} /> */
-        <ImageViewer document={projectPhase} />
+        <ImageViewer document={projectPhase.document} />
       )}
     </>
   );

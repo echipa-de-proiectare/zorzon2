@@ -39,7 +39,9 @@ const MenuSection = ({ phase, setViewItemId, viewItemId, setViewPhaseId }) => {
             {phase.item.map((element) => (
               <li key={element.id}>
                 <Link
-                  className={viewItemId === element.id ? "is-active" : ""}
+                  className={`has-background-inherit m-0 p-0 ${
+                    viewItemId === element.id ? "is-active" : ""
+                  }`}
                   to="/user/project"
                   onClick={() => handleProjectItemClick(element.id)}
                   style={

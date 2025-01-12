@@ -9,6 +9,11 @@ const UserAppLayout = () => {
   const [viewItemId, setViewItemId] = useState("");
   const [viewPhaseId, setViewPhaseId] = useState("");
 
+  const [isCollapsed, setIsCollapsed] = useState(false); // State to toggle menu
+  const toggleMenu = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   const { loading, error, projects } = useFetchUserProjects();
 
   useEffect(() => {
@@ -32,18 +37,34 @@ const UserAppLayout = () => {
 
   return (
     <>
-      <div className="container is-fluid columns">
-        <section className="section column is-one-fifth">
-          <Dashboard
-            viewItemId={viewItemId}
-            setViewItemId={setViewItemId}
-            setViewPhaseId={setViewPhaseId}
-          />
+      <div className="container is-fluid columns pl-0">
+        {/* Sidebar Section */}
+        <section
+          className={`section column has-background-grey-lighter  ${
+            isCollapsed ? "is-narrow p-0" : "is-one-fifth "
+          }`}
+          style={{
+            transition: "width 0.3s",
+            overflow: "hidden",
+          }}
+        >
+          {!isCollapsed && (
+            <Dashboard
+              viewItemId={viewItemId}
+              setViewItemId={setViewItemId}
+              setViewPhaseId={setViewPhaseId}
+            />
+          )}
         </section>
-        <section className="section column">
-          <div>
-            <Outlet context={{ viewItemId, viewPhaseId }} />
-          </div>
+        <button className="button is-fullheight p-1" onClick={toggleMenu}>
+          <i
+            className={`fa-solid ${
+              isCollapsed ? "fa-angle-right" : "fa-angle-left"
+            }`}
+          ></i>
+        </button>
+        <section className="section column is-fullheight">
+          <Outlet context={{ viewItemId, viewPhaseId }} />
         </section>
       </div>
     </>
