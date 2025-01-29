@@ -1,71 +1,57 @@
 import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Dashboard from "../user/components/Dashboard";
-import { useFetchUserProjects } from "../user/hooks/useFetchUserProjects";
+import { useFetchUserProject } from "../user/hooks/useFetchUserProjects";
 import NotAllowedUserHome from "../user/components/NotAllowedUserHome";
+import Nav from "../main/components/Nav";
 
-const UserAppLayout = () => {
-  // set what document to view
-  const [viewItemId, setViewItemId] = useState("");
-  const [viewPhaseId, setViewPhaseId] = useState("");
+const UserAppLayout = ({ about }) => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsedSecondary, setIsCollapsedSecondary] = useState(false);
 
-  const [isCollapsed, setIsCollapsed] = useState(false); // State to toggle menu
+  const { loadingProject, errorProject, project } = useFetchUserProject();
+
   const toggleMenu = () => {
     setIsCollapsed(!isCollapsed);
   };
+  const toggleMenuSecondary = () => {
+    setIsCollapsedSecondary(!isCollapsedSecondary);
+  };
 
-  const { loading, error, projects } = useFetchUserProjects();
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-
-    const viewId = params.get("viewItemId");
-    if (viewId) {
-      setViewItemId(viewId);
-    }
-
-    const phaseId = params.get("viewItemId");
-    if (phaseId) {
-      setViewItemId(phaseId);
-    }
-  }, []);
-
-  if (error) return <p>A network error was encountered</p>;
-  if (loading) return <p>Loading...</p>;
-
-  if (!projects) return <NotAllowedUserHome />;
+  if (errorProject) return <p>A network error was encountered</p>;
+  if (loadingProject) return <p>Loading...</p>;
+  if (!project) return <NotAllowedUserHome />;
 
   return (
     <>
-      <div className="container is-fluid columns pl-0">
-        {/* Sidebar Section */}
-        <section
-          className={`section column has-background-grey-lighter  ${
-            isCollapsed ? "is-narrow p-0" : "is-one-fifth "
-          }`}
-          style={{
-            transition: "width 0.3s",
-            overflow: "hidden",
-          }}
-        >
-          {!isCollapsed && (
-            <Dashboard
-              viewItemId={viewItemId}
-              setViewItemId={setViewItemId}
-              setViewPhaseId={setViewPhaseId}
-            />
-          )}
-        </section>
-        <button className="button is-fullheight p-1" onClick={toggleMenu}>
-          <i
-            className={`fa-solid ${
-              isCollapsed ? "fa-angle-right" : "fa-angle-left"
-            }`}
-          ></i>
-        </button>
-        <section className="section column is-fullheight">
-          <Outlet context={{ viewItemId, viewPhaseId }} />
-        </section>
+      <Nav about={about} />
+      <div className="section" style={{ height: "100%" }}>
+        <div className="columns">
+          <div
+            className={`column   ${isCollapsed ? "is-narrow p-0" : "is-2"}`}
+            style={{
+              transition: "width 0.3s",
+              overflow: "hidden",
+            }}
+          >
+            {!isCollapsed && <Dashboard project={project} />}
+          </div>
+
+          <button
+            className="button p-1"
+            onClick={toggleMenu}
+            style={{ height: "30px" }}
+          >
+            <i
+              className={`fa-solid ${
+                isCollapsed ? "fa-angle-right" : "fa-angle-left"
+              }`}
+            ></i>
+          </button>
+          <div className="column is-four-fifths ">
+            <Outlet />
+          </div>
+        </div>
       </div>
     </>
   );

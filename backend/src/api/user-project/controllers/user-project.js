@@ -58,14 +58,15 @@ module.exports = createCoreController(
             phase: {
               on: {
                 "dashboard.project-phase": {
-                  filters: { id: pid },
                   populate: {
                     item: {
-                      filters: { id: iid }, // Filter item by ID
                       populate: {
-                        fields: ["url"],
-                        document: {
-                          fields: ["url", "ext", "formats"],
+                        DocumentItem: {
+                          populate: {
+                            document: {
+                              fields: ["ext", "url", "formats"],
+                            },
+                          },
                         },
                       },
                     },

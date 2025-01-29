@@ -56,7 +56,7 @@ function App() {
               element={<GoogleAuthRedirect />}
             />
           </Route>
-          <Route path="/user/" element={<UserAppLayout />}>
+          <Route path="/user/" element={<UserAppLayout about={about} />}>
             <Route
               path="profile"
               element={<Protector Component={<UserHome />} />}

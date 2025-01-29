@@ -1,17 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useFetchProjectById } from "../hooks/useFetchProjects";
 import LoadingIcon from "../../elements/loadingIcon";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-// import required modules
-import { Pagination } from "swiper/modules";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
 import "../styles/Project.css";
+import ImageModal from "../../components/ImageModal";
 
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
@@ -69,39 +62,12 @@ function Project() {
           </div>
         ))}
       </div>
-      {/* Full-Screen Modal */}
-      {isModalActive && (
-        <div className={`modal ${isModalActive ? "is-active" : ""}`}>
-          <div className="modal-background" onClick={closeModal}></div>
-          <div className="modal-content">
-            <Swiper
-              initialSlide={activeImage} // Start from the clicked image
-              spaceBetween={30}
-              pagination={{
-                clickable: true,
-              }}
-              modules={[Pagination]}
-              className="mySwiper"
-            >
-              {project.images.map((image) => (
-                <SwiperSlide key={image.id}>
-                  <figure className="image">
-                    <img
-                      src={`${API_URL}${image.url}`}
-                      alt={image.name || "Full screen image"}
-                    />
-                  </figure>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-          <button
-            className="modal-close is-large"
-            aria-label="close"
-            onClick={closeModal}
-          ></button>
-        </div>
-      )}
+      <ImageModal
+        images={project.images}
+        isModalActive={isModalActive}
+        activeImage={activeImage}
+        closeModal={closeModal}
+      />
     </div>
   );
 }

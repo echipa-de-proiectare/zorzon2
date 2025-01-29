@@ -53,38 +53,30 @@ export const useFetchNotAllwedUser = () => {
   return { loading, error, message };
 };
 
-export const useFetchProjectPhase = (viewPhaseId, viewItemId) => {
+//fetches full project
+export const useFetchUserProject = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [projectPhase, setProjectPhase] = useState();
+  const [project, setProject] = useState();
 
   useEffect(() => {
-    if (!viewPhaseId || !viewItemId) {
-      // If either ID is null or undefined, exit early
-      return;
-    }
-
     setLoading(true); // Begin loading only when IDs are valid
     const token = localStorage.getItem("jwt");
-    fetch(
-      `${API_URL}/api/project-phases?pid=${viewPhaseId}&iid=${viewItemId}`,
-      {
-        mode: "cors",
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    fetch(`${API_URL}/api/project-phases`, {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
-        const fetchedData = data.data[0].phase[0].item[0];
-        setProjectPhase(fetchedData);
-        console.log(fetchedData);
+        const fetchedData = data.data[0];
+        setProject(fetchedData);
       })
       .catch((error) => setError(error.message))
       .finally(() => setLoading(false));
-  }, [viewPhaseId, viewItemId]);
-  return { loading, error, projectPhase };
+  }, []);
+  return { loading, error, project };
 };

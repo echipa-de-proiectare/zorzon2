@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_dashboard_document_items",
+  "info": {
+    "displayName": "document-item",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "document": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "ReviewDate": {
+      "type": "date"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "model",
+        "document"
+      ],
+      "required": true
+    },
+    "modelurl": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}

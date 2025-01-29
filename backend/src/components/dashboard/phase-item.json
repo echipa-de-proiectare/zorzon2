@@ -12,19 +12,11 @@
     "available": {
       "type": "boolean"
     },
-    "document": {
-      "type": "media",
-      "multiple": true,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
-    "url": {
-      "type": "string"
+    "DocumentItem": {
+      "displayName": "document-item",
+      "type": "component",
+      "repeatable": true,
+      "component": "dashboard.document-item"
     }
   }
 }
