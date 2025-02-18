@@ -1,0 +1,13 @@
+
+
+# Test Frontend (zorzon.com.ro/test)
+zorzon.com.ro/test/* 
+{
+    reverse_proxy frontend-test:5175
+}
+
+# Test Backend (zorzon.com.ro/test-admin)
+zorzon.com.ro/test-admin/*
+{
+    reverse_proxy backend-test:1339
+}

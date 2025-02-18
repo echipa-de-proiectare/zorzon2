@@ -9,7 +9,7 @@ services:
       - "8080:80" # Test Caddy HTTP
       - "8443:443" # Test Caddy HTTPS
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./Caddyfile-test:/etc/caddy/Caddyfile-test
       - caddy_test_data:/data
       - caddy_test_config:/config
 
