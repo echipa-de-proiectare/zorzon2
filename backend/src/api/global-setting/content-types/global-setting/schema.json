@@ -1,10 +1,10 @@
 {
   "kind": "singleType",
-  "collectionName": "abouts",
+  "collectionName": "global-setting",
   "info": {
-    "singularName": "about",
-    "pluralName": "abouts",
-    "displayName": "about",
+    "singularName": "global-setting",
+    "pluralName": "global-settings",
+    "displayName": "Global Setting ",
     "description": ""
   },
   "options": {
@@ -12,6 +12,9 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "title": {
+      "type": "string"
+    },
     "description": {
       "type": "text"
     },
@@ -37,10 +40,21 @@
         "audios"
       ]
     },
-    "contact": {
+    "topNavigation": {
+      "displayName": "Top Navigation",
       "type": "component",
-      "repeatable": true,
-      "component": "about.contact"
+      "repeatable": false,
+      "component": "layout.top-navigation"
+    },
+    "footer": {
+      "type": "component",
+      "repeatable": false,
+      "component": "layout.footer"
+    },
+    "userTopNavigation": {
+      "type": "component",
+      "repeatable": false,
+      "component": "layout.top-navigation"
     }
   }
 }

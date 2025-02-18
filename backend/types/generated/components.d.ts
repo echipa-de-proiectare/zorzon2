@@ -23,9 +23,10 @@ export interface DashboardDocumentItem extends Struct.ComponentSchema {
     document: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
-    >;
+    > &
+      Schema.Attribute.Required;
     modelurl: Schema.Attribute.String;
-    ReviewDate: Schema.Attribute.Date;
+    ReviewDate: Schema.Attribute.Date & Schema.Attribute.Required;
     type: Schema.Attribute.Enumeration<['model', 'document']> &
       Schema.Attribute.Required;
   };
@@ -69,6 +70,30 @@ export interface ElementsLink extends Struct.ComponentSchema {
   };
 }
 
+export interface LayoutFooter extends Struct.ComponentSchema {
+  collectionName: 'components_layout_footers';
+  info: {
+    description: '';
+    displayName: 'Footer';
+  };
+  attributes: {
+    about: Schema.Attribute.Text;
+    contact: Schema.Attribute.Component<'elements.link', true>;
+  };
+}
+
+export interface LayoutTopNavigation extends Struct.ComponentSchema {
+  collectionName: 'components_layout_top_navigations';
+  info: {
+    displayName: 'Top Navigation';
+  };
+  attributes: {
+    cta: Schema.Attribute.Component<'elements.link', false>;
+    logoTitle: Schema.Attribute.Component<'elements.link', false>;
+    navItems: Schema.Attribute.Component<'elements.link', true>;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -77,6 +102,8 @@ declare module '@strapi/strapi' {
       'dashboard.phase-item': DashboardPhaseItem;
       'dashboard.project-phase': DashboardProjectPhase;
       'elements.link': ElementsLink;
+      'layout.footer': LayoutFooter;
+      'layout.top-navigation': LayoutTopNavigation;
     }
   }
 }

@@ -1,0 +1,81 @@
+services:
+  caddy:
+    image: caddy:latest
+    container_name: caddy_test
+    platform: linux/arm64
+    networks:
+      - zorzon_test
+    ports:
+      - "8080:80" # Test Caddy HTTP
+      - "8443:443" # Test Caddy HTTPS
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_test_data:/data
+      - caddy_test_config:/config
+
+  backend:
+    container_name: zorzon_backend_test
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.test
+    platform: linux/arm64
+    volumes:
+      - strapi_test_media:/app/public/uploads
+    expose:
+      - "1339" # Use different internal port
+    env_file:
+      - ./backend/.env
+    environment:
+      DATABASE_HOST: zorzon_db_test
+      NODE_ENV: production
+      URL: https://.zorzon.com.ro/test-admin
+      TRUST_PROXY: "true"
+    depends_on:
+      - db
+    networks:
+      - zorzon_test
+
+  frontend:
+    container_name: zorzon_frontend_test
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    platform: linux/arm64
+    volumes:
+      - ./frontend:/app
+      - ./frontend/.env:/opt/app/.env
+    expose:
+      - "5175" # Use different internal port
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    networks:
+      - zorzon_test
+    depends_on:
+      - backend
+
+  db:
+    container_name: zorzon_db_test
+    image: postgres:15
+    platform: linux/arm64
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+      - ./backup:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: strapi
+      POSTGRES_DB: strapi_test
+    ports:
+      - "5435:5432" # Different external port
+    networks:
+      - zorzon_test
+
+volumes:
+  postgres_test_data:
+  strapi_test_media:
+  caddy_test_data:
+  caddy_test_config:
+
+networks:
+  zorzon_test:
+    driver: bridge

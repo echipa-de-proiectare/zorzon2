@@ -1,9 +1,23 @@
-# Serve the frontend
-zorzon.com.ro {
-    reverse_proxy frontend:80  # Proxy to the 'frontend' container
+# Live Frontend (zorzon.com.ro)
+zorzon.com.ro 
+{
+    reverse_proxy frontend:5174
 }
 
-# Proxy requests to Strapi
-admin.zorzon.com.ro {
-    reverse_proxy backend:1338  # Proxy to the 'backend' container
+# Live Backend (admin.zorzon.com.ro)
+admin.zorzon.com.ro 
+{
+    reverse_proxy backend:1338
+}
+
+# Test Frontend (zorzon.com.ro/test)
+zorzon.com.ro/test/* 
+{
+    reverse_proxy frontend-test:5175
+}
+
+# Test Backend (zorzon.com.ro/test-admin)
+zorzon.com.ro/test-admin/*
+{
+    reverse_proxy backend-test:1339
 }
