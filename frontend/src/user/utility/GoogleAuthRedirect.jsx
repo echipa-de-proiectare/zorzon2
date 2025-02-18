@@ -2,6 +2,7 @@ import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "./UserContext";
+import LoadingIcon from "../../elements/loadingIcon";
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
 const GoogleAuthRedirect = () => {
@@ -32,7 +33,7 @@ const GoogleAuthRedirect = () => {
     fetchAuthData();
   }, [navigate, setUser]);
 
-  return <div>Loading...</div>;
+  return <LoadingIcon />;
 };
 
 export default GoogleAuthRedirect;

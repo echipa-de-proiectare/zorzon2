@@ -1,62 +1,44 @@
-import { useState } from "react";
-import { Link, useOutletContext } from "react-router-dom";
+import "../styles/MenuSection.css";
 
-const MenuSection = ({ phase, project }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const onArrowClick = () => {
-    setIsOpen(!isOpen);
+const MenuSection = ({ phase, setPhaseName, phaseName }) => {
+  const onItemClick = (element) => {
+    setPhaseName(element.name);
   };
 
   return (
     <li className="menu-section">
       <span className="icon-text is-flex is-justify-content-space-between is-align-items-center">
         <span>{phase.name}</span>
-        {!isOpen && (
-          <span className="icon is-small" onClick={onArrowClick}>
-            <i className="fa-solid fa-angle-right"></i>
-          </span>
-        )}
-        {isOpen && (
-          <span className="icon is-small" onClick={onArrowClick}>
-            <i className="fa-solid fa-angle-down"></i>
-          </span>
-        )}
       </span>
-      {isOpen && (
-        <ul>
-          {phase.item.map((element) => (
-            <li key={element.id}>
-              <Link
-                className={`has-background-inherit m-0 p-0`}
-                to="/user/project"
-                state={{
-                  documentItem: element.DocumentItem,
-                  project: project,
-                  phase: element.name,
-                }}
-                style={
-                  element.available
-                    ? {}
-                    : {
-                        pointerEvents: "none",
-                        color: "gray",
-                        cursor: "not-allowed",
-                      }
-                }
-              >
-                <span className="icon-text is-flex is-justify-content-space-between">
-                  <span>{element.name}</span>
-                  {!element.available && (
-                    <span className="icon is-small">
-                      <i className="fas fa-lock"></i>
-                    </span>
-                  )}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul>
+        {phase.item.map((element) => (
+          <li key={element.id} onClick={() => onItemClick(element)}>
+            <a
+              className={`has-background-inherit m-0 p-0 ${
+                phaseName === element.name ? "is-active" : ""
+              }`}
+              style={
+                element.available
+                  ? {}
+                  : {
+                      pointerEvents: "none",
+                      color: "gray",
+                      cursor: "not-allowed",
+                    }
+              }
+            >
+              <span className="icon-text is-flex is-justify-content-space-between">
+                <span>{element.name}</span>
+                {!element.available && (
+                  <span className="icon is-small">
+                    <i className="fas fa-lock"></i>
+                  </span>
+                )}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </li>
   );
 };

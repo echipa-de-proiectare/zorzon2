@@ -18,8 +18,6 @@ const NotAllowedUserHome = () => {
     // Redirect to homepage after logout
   };
 
-  console.log(message);
-
   if (error) return <p>A network error was encountered</p>;
   if (loading) return <p>Loading...</p>;
 

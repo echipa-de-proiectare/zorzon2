@@ -1,8 +1,14 @@
+import { useEffect } from "react";
+
 const UserProjectFilters = ({
   reviewDate,
   setReviewDate,
   uniqueSortedDates,
 }) => {
+  const handleDateChange = (date) => {
+    setReviewDate(date);
+  };
+
   return (
     <div className="dropdown is-hoverable">
       <div className="dropdown-trigger">
@@ -27,7 +33,7 @@ const UserProjectFilters = ({
                   : `dropdown-item`
               }
               key={date}
-              onClick={() => setReviewDate(date)}
+              onClick={() => handleDateChange(date)}
             >
               {date}
             </a>

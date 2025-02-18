@@ -7,7 +7,7 @@ const UserHome = () => {
   if (!user) return <p>Loading...</p>;
 
   return (
-    <div>
+    <div className="section has-text-centered">
       <h1>Welcome, {user.username}</h1>
       <p>Email: {user.email}</p>
       <p>Provider: {user.provider}</p>
