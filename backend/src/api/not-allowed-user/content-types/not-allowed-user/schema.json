@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "not_allowed_users",
+  "info": {
+    "singularName": "not-allowed-user",
+    "pluralName": "not-allowed-users",
+    "displayName": "NotAllowedUser"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "message": {
+      "type": "text"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

@@ -1,8 +1,8 @@
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 import { useState, useEffect } from "react";
 
-const useFetchAbout = () => {
-  const [about, setAbout] = useState(null);
+const useFetchGlobalSettings = () => {
+  const [globalSettings, setGlobalSettings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -10,12 +10,12 @@ const useFetchAbout = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${API_URL}/api/about?populate=*`);
+        const response = await fetch(`${API_URL}/api/global-settings`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
-        setAbout(result.data); // Access the `data` key from the API response
+        setGlobalSettings(result.data); // Access the `data` key from the API response
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -26,7 +26,7 @@ const useFetchAbout = () => {
     fetchData();
   }, []);
 
-  return { about, loading, error };
+  return { globalSettings, loading, error };
 };
 
-export default useFetchAbout;
+export default useFetchGlobalSettings;

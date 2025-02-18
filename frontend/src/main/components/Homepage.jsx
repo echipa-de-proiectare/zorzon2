@@ -5,7 +5,7 @@ import LoadingIcon from "../../elements/loadingIcon";
 
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
-function Homepage({ about }) {
+function Homepage({ logoPrimary }) {
   const { loading, error, projects } = useFetchProjectsSpotlight();
 
   if (error) return <p>A network error was encountered</p>;
@@ -15,10 +15,10 @@ function Homepage({ about }) {
     <div className="homepage">
       <section className="hero is-fullheight is-flex is-align-items-center">
         <div className="hero-body">
-          {about.logo_primary && (
+          {logoPrimary && (
             <figure className="image ">
               <img
-                src={`${API_URL}${about.logo_primary.url}`} // Check if primary logo is available
+                src={`${API_URL}${logoPrimary.formats.small.url}`} // Check if primary logo is available
                 alt="Company logo"
                 style={{ maxWidth: "300px" }}
               />

@@ -1,0 +1,101 @@
+import PDFViewer from "./PDFViewer";
+import ImageViewer from "./ImageViewer";
+import ThreeDViewer from "./ThreeDViewer";
+import { useEffect, useState } from "react";
+import UserProjectFilters from "./UserProjectFilters";
+import Dashboard from "./Dashboard";
+import { useProjectContext } from "../../layouts/UserAppLayout";
+
+const UserProject = () => {
+  const project = useProjectContext();
+
+  const [documentItem, setDocumentItem] = useState(
+    project.phase[0].item[0].DocumentItem[0]
+  );
+  const [reviewDate, setReviewDate] = useState(
+    project.phase[0].item[0].DocumentItem[0].ReviewDate
+  );
+  const [phaseName, setPhaseName] = useState(project.phase[0].item[0].name);
+
+  const reviewDates = project?.phase.flatMap((phase) =>
+    phase.item?.flatMap((item) =>
+      item.DocumentItem?.flatMap((doc) => doc.ReviewDate)
+    )
+  );
+  const uniqueSortedDates = [...new Set(reviewDates)].sort(
+    (a, b) => new Date(a) - new Date(b)
+  );
+
+  useEffect(() => {
+    const element = project.phase
+      .flatMap((phase) => phase.item) // Flatten all items from all phases
+      .find((item) => item.name === phaseName); // Find the item by name
+    // Find the document that matches the selected review date
+    let document = element.DocumentItem.find(
+      (doc) => doc.ReviewDate === reviewDate
+    );
+
+    // If no exact match, find the latest older document
+    if (!document) {
+      const previousDocs = element.DocumentItem.filter(
+        (doc) => new Date(doc.ReviewDate) <= new Date(reviewDate)
+      ) // Find only older or equal review dates
+        .sort((a, b) => new Date(b.ReviewDate) - new Date(a.ReviewDate)); // Sort descending (newest first)
+
+      document = previousDocs.length > 0 ? previousDocs[0] : null; // Pick the latest available document
+    }
+
+    setDocumentItem(document);
+  }, [reviewDate, phaseName, project]);
+
+  return (
+    <div className="section is-medium">
+      <div className="container ">
+        <div className="columns">
+          <div className="column is-one-fifth">
+            {project && (
+              <Dashboard setPhaseName={setPhaseName} phaseName={phaseName} />
+            )}
+          </div>
+          <div className="column is-four-fifths ">
+            <div className="container">
+              <div className="section px-0 pt-0">
+                <p>Review Date</p>
+                <UserProjectFilters
+                  reviewDate={reviewDate}
+                  setReviewDate={setReviewDate}
+                  uniqueSortedDates={uniqueSortedDates}
+                />
+              </div>
+              <div className="section p-0 ">
+                {documentItem ? (
+                  documentItem.type === "document" ? (
+                    documentItem.document[0].ext === ".pdf" ? (
+                      <PDFViewer
+                        document={documentItem}
+                        reviewDate={reviewDate}
+                        phase={phaseName}
+                      />
+                    ) : (
+                      <ImageViewer
+                        document={documentItem}
+                        reviewDate={reviewDate}
+                        phase={phaseName}
+                      />
+                    )
+                  ) : documentItem.type === "model" ? (
+                    <ThreeDViewer document={documentItem.modelurl} />
+                  ) : null
+                ) : (
+                  <p>No document available at the selected review date.</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default UserProject;

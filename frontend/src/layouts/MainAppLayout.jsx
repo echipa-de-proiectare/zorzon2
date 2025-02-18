@@ -3,7 +3,7 @@ import Footer from "../main/components/Footer";
 import Nav from "../main/components/Nav";
 import { useEffect } from "react";
 
-const MainAppLayout = ({ about }) => {
+const MainAppLayout = ({ globalSettings }) => {
   useEffect(() => {
     // Add the class to the body element
     document.body.classList.add("has-navbar-fixed-top");
@@ -14,16 +14,18 @@ const MainAppLayout = ({ about }) => {
     };
   }, []); // Empty dependency array to run this effect only on mount/unmount
 
+  const logoSecondary = globalSettings.logo_secondary;
+  const footer = globalSettings.footer;
+  const topNavigation = globalSettings.topNavigation;
+
   return (
     <div
       className="is-flex is-flex-direction-column is-justify-content-space-between"
       style={{ height: "100%" }}
     >
-      <Nav about={about} />
-      <div className="container is-max-desktop">
-        <Outlet />
-      </div>
-      <Footer about={about} />
+      <Nav topNavigation={topNavigation} logoSecondary={logoSecondary} />
+      <Outlet />
+      <Footer footer={footer} logoSecondary={logoSecondary} />
     </div>
   );
 };

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_dashboard_phase_items",
+  "info": {
+    "displayName": "phase-item",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "available": {
+      "type": "boolean"
+    },
+    "DocumentItem": {
+      "displayName": "document-item",
+      "type": "component",
+      "repeatable": true,
+      "component": "dashboard.document-item"
+    }
+  }
+}

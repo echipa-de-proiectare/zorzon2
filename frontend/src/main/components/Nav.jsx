@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 import "../styles/Nav.css";
 
-const Nav = ({ about }) => {
+const Nav = ({ topNavigation, logoSecondary }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const isMobile = () => window.innerWidth < 992; // Check if the current screen width is for mobile
@@ -23,8 +23,6 @@ const Nav = ({ about }) => {
     }
   };
 
-  const logo = about.logo_secondary.url;
-
   return (
     <nav
       className="navbar is-fixed-top is-white"
@@ -32,8 +30,12 @@ const Nav = ({ about }) => {
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <Link className="navbar-item" to="/" onClick={onLogoClick}>
-          <img src={`${API_URL}${logo}`} alt="ZorZon Logo" />
+        <Link
+          className="navbar-item"
+          to={topNavigation.logoTitle.href}
+          onClick={onLogoClick}
+        >
+          <img src={`${API_URL}${logoSecondary.url}`} alt="ZorZon Logo" />
         </Link>
 
         <a
@@ -58,12 +60,22 @@ const Nav = ({ about }) => {
         className={`navbar-end navbar-menu ${isOpen ? "is-active" : ""}`}
       >
         <div className="navbar-end">
-          <Link className="navbar-item" to="/portofoliu" onClick={toggleIsOpen}>
-            PORTOFOLIU
-          </Link>
-          <Link className="navbar-item" to="/contact" onClick={toggleIsOpen}>
-            CONTACT
-          </Link>
+          {topNavigation.navItems.map((item) => (
+            <Link
+              key={item.id}
+              className="navbar-item"
+              to={item.href}
+              onClick={toggleIsOpen}
+            >
+              {item.label}
+            </Link>
+          ))}
+
+          <div className="navbar-item">
+            <a className="button " href={topNavigation.cta.href}>
+              <strong>{topNavigation.cta.label}</strong>
+            </a>
+          </div>
         </div>
       </div>
     </nav>
