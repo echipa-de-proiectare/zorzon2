@@ -1,11 +1,4 @@
-
-test.zorzon.com.ro
-{
-    reverse_proxy frontend:5175
-}
-
-
-test-admin.zorzon.com.ro
-{
-    reverse_proxy backend:1339
+test.zorzon.com.ro {
+    root * /srv/test-site
+    file_server
 }

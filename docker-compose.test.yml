@@ -8,6 +8,7 @@ services:
       - "8443:443" # Test Caddy HTTPS
     volumes:
       - ./Caddyfile-test:/etc/caddy/Caddyfile
+        - ./test-site:/srv/test-site # Mount test-site for serving static files
       - caddy_test_data:/data
       - caddy_test_config:/config
     networks:
