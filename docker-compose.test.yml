@@ -45,7 +45,7 @@ services:
       - ./frontend:/app
       - ./frontend/.env:/opt/app/.env
     expose:
-      - "5175:5175" # Use different internal port
+      - "8080" # Use different internal port
     environment:
       - NODE_ENV=production
     restart: unless-stopped
