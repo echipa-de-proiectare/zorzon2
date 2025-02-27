@@ -8,7 +8,7 @@ services:
     volumes:
       - strapi_test_media:/app/public/uploads
     ports:
-      - "1339:1337" # Use different internal port
+      - "1337:1337"
     env_file:
       - ./backend/.env
     environment:
@@ -31,7 +31,7 @@ services:
       - ./frontend:/app
       - ./frontend/.env:/opt/app/.env
     ports:
-      - "8080:80" # Use different internal port
+      - "80:80" # Use different internal port
     environment:
       - NODE_ENV=production
     restart: unless-stopped

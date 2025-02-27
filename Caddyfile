@@ -1,21 +1,19 @@
-# Live Frontend (zorzon.com.ro)
-zorzon.com.ro 
-{
-    reverse_proxy frontend:5174
+# Serve the frontend (production)
+zorzon.com.ro {
+    reverse_proxy zorzon_frontend:80  # Proxy to the production frontend container
 }
 
-# Live Backend (admin.zorzon.com.ro)
-admin.zorzon.com.ro 
-{
-    reverse_proxy backend:1338
+# Proxy requests to Strapi (production)
+admin.zorzon.com.ro {
+    reverse_proxy zorzon_backend:1338  # Proxy to the production backend container
 }
 
-test.zorzon.com.ro
-{
-    reverse_proxy frontend-test:8080
+# Proxy requests to the test backend
+test-admin.zorzon.com.ro {
+    reverse_proxy zorzon_backend_test:1337
 }
 
-test-admin.zorzon.com.ro
-{
-    reverse_proxy backend-test:1339
+# Serve the test frontend
+test.zorzon.com.ro {
+    reverse_proxy zorzon_frontend_test:80
 }
