@@ -1,19 +1,5 @@
 services:
-  caddy:
-    image: caddy:latest
-    container_name: caddy_test
-    platform: linux/arm64
-    ports:
-      - "8080:80" # Test Caddy HTTP
-      - "8443:443" # Test Caddy HTTPS
-    volumes:
-      - ./Caddyfile-test:/etc/caddy/Caddyfile
-      - caddy_test_data:/data
-      - caddy_test_config:/config
-    networks:
-      - zorzon_test
-
-  backend:
+  backend-test:
     container_name: zorzon_backend_test
     build:
       context: ./backend
@@ -21,8 +7,8 @@ services:
     platform: linux/arm64
     volumes:
       - strapi_test_media:/app/public/uploads
-    expose:
-      - "1339" # Use different internal port
+    ports:
+      - "1339:1337" # Use different internal port
     env_file:
       - ./backend/.env
     environment:
@@ -31,11 +17,11 @@ services:
       URL: https://test-admin.zorzon.com.ro
       TRUST_PROXY: "true"
     depends_on:
-      - db
+      - db-test
     networks:
       - zorzon_test
 
-  frontend:
+  frontend-test:
     container_name: zorzon_frontend_test
     build:
       context: ./frontend
@@ -44,17 +30,17 @@ services:
     volumes:
       - ./frontend:/app
       - ./frontend/.env:/opt/app/.env
-    expose:
-      - "80" # Use different internal port
+    ports:
+      - "8080:80" # Use different internal port
     environment:
       - NODE_ENV=production
     restart: unless-stopped
     networks:
       - zorzon_test
     depends_on:
-      - backend
+      - backend-test
 
-  db:
+  db-test:
     container_name: zorzon_db_test
     image: postgres:15
     platform: linux/arm64
@@ -79,3 +65,5 @@ volumes:
 networks:
   zorzon_test:
     driver: bridge
+  zorzon:
+    external: true

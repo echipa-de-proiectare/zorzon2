@@ -10,3 +10,12 @@ admin.zorzon.com.ro
     reverse_proxy backend:1338
 }
 
+test.zorzon.com.ro
+{
+    reverse_proxy frontend-test:8080
+}
+
+test-admin.zorzon.com.ro
+{
+    reverse_proxy backend-test:1339
+}
