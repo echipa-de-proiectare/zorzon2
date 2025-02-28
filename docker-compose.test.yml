@@ -30,8 +30,7 @@ services:
     volumes:
       - ./frontend:/app
       - ./frontend/.env:/opt/app/.env
-    ports:
-      - "80:80" # Use different internal port
+
     environment:
       - NODE_ENV=production
     restart: unless-stopped
