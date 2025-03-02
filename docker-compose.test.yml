@@ -15,7 +15,7 @@ services:
       DATABASE_HOST: zorzon_db_test
       NODE_ENV: production
       URL: https://test-admin.zorzon.com.ro
-      TRUST_PROXY: "true"
+      TRUST_PROXY: true
     depends_on:
       - db-test
     networks:
