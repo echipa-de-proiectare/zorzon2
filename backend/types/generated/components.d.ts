@@ -23,8 +23,7 @@ export interface DashboardDocumentItem extends Struct.ComponentSchema {
     document: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
-    > &
-      Schema.Attribute.Required;
+    >;
     modelurl: Schema.Attribute.String;
     ReviewDate: Schema.Attribute.Date & Schema.Attribute.Required;
     type: Schema.Attribute.Enumeration<['model', 'document']> &
