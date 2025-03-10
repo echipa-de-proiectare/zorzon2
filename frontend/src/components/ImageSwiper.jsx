@@ -61,12 +61,13 @@ const ImageSwiper = ({
                 ${API_URL}${image.url} 3000w
               `}
                 sizes="
-                (max-width: 768px) 375px,
-                (min-width: 769px) and (max-width: 1023px) 563px,
-                (min-width: 1024px) and (max-width: 1215px) 750px,
-                (min-width: 1216px) and (max-width: 1407px) 1000px,
+                (max-width: 768px) 375w,
+                (min-width: 769px) and (max-width: 1023px) 563w,
+                (min-width: 1024px) and (max-width: 1215px) 750w,
+                (min-width: 1216px) and (max-width: 1407px) 1000w,
                 3000px
               "
+                style={{ maxHeight: "80vh", objectFit: "contain" }}
                 alt={image.name || "document"}
                 onClick={() => setIsModalActive(true)}
               />

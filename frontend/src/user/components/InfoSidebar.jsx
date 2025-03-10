@@ -1,18 +1,18 @@
 const InfoSidebar = ({ document, downloadCurrent, downloadAll }) => {
   return (
-    <div className="container is-flex is-flex-direction-column is-align-items-start is-justify-content-start ">
+    <div className="block is-flex is-flex-direction-column is-align-items-start is-justify-content-start ">
+      <p className="mb-2">{document.description}</p>
       <i className="fa-regular fa-circle-down mb-2" onClick={downloadCurrent}>
         Download
       </i>
-      {document.document.length > 1 && (
+      {document.MediaDoc.length > 1 && (
         <i
           className="fa-regular fa-file-zipper"
-          onClick={() => downloadAll(document.document)}
+          onClick={() => downloadAll(document.MediaDoc)}
         >
           Download All
         </i>
       )}
-      <p className="mb-2">{document.description}</p>
     </div>
   );
 };

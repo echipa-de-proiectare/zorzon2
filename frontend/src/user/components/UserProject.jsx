@@ -12,6 +12,7 @@ const UserProject = () => {
   const [documentItem, setDocumentItem] = useState(
     project.phase[0].item[0].DocumentItem[0]
   );
+
   const [reviewDate, setReviewDate] = useState(
     project.phase[0].item[0].DocumentItem[0].ReviewDate
   );
@@ -49,48 +50,43 @@ const UserProject = () => {
   }, [reviewDate, phaseName, project]);
 
   return (
-    <div className="section is-medium">
-      <div className="container ">
-        <div className="columns">
-          <div className="column is-one-fifth">
-            {project && (
-              <Dashboard setPhaseName={setPhaseName} phaseName={phaseName} />
-            )}
-          </div>
-          <div className="column is-four-fifths ">
-            <div className="container">
-              <div className="section px-0 pt-0">
-                <p>Review Date</p>
-                <UserProjectFilters
-                  reviewDate={reviewDate}
-                  setReviewDate={setReviewDate}
-                  uniqueSortedDates={uniqueSortedDates}
-                />
-              </div>
-              <div className="section p-0 ">
-                {documentItem ? (
-                  documentItem.type === "document" ? (
-                    documentItem.document[0].ext === ".pdf" ? (
-                      <PDFViewer
-                        document={documentItem}
-                        reviewDate={reviewDate}
-                        phase={phaseName}
-                      />
-                    ) : (
-                      <ImageViewer
-                        document={documentItem}
-                        reviewDate={reviewDate}
-                        phase={phaseName}
-                      />
-                    )
-                  ) : documentItem.type === "model" ? (
-                    <ThreeDViewer document={documentItem.modelurl} />
-                  ) : null
+    <div className="section p-0 my-6 ">
+      <div className="columns is-0">
+        <div className="column is-2 ">
+          {project && (
+            <Dashboard setPhaseName={setPhaseName} phaseName={phaseName} />
+          )}
+        </div>
+        <div className="column is-10">
+          <UserProjectFilters
+            reviewDate={reviewDate}
+            setReviewDate={setReviewDate}
+            uniqueSortedDates={uniqueSortedDates}
+          />
+          <div className="section p-0 ">
+            {documentItem ? (
+              documentItem.type === "document" ? (
+                documentItem.MediaDoc[0].MediaFile.ext === ".pdf" ? (
+                  <PDFViewer
+                    document={documentItem}
+                    reviewDate={reviewDate}
+                    phase={phaseName}
+                  />
                 ) : (
-                  <p>No document available at the selected review date.</p>
-                )}
-              </div>
-            </div>
+                  <ImageViewer
+                    document={documentItem}
+                    reviewDate={reviewDate}
+                    phase={phaseName}
+                  />
+                )
+              ) : documentItem.type === "model" ? (
+                <div style={{ height: "80vh", display: "flex" }}>
+                  <ThreeDViewer document={documentItem.modelurl} />
+                </div>
+              ) : null
+            ) : (
+              <p>No document available at the selected review date.</p>
+            )}
           </div>
         </div>
       </div>

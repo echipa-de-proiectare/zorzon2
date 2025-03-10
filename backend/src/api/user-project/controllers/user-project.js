@@ -63,8 +63,12 @@ module.exports = createCoreController(
                       populate: {
                         DocumentItem: {
                           populate: {
-                            document: {
-                              fields: ["ext", "url", "formats"],
+                            MediaDoc: {
+                              populate: {
+                                MediaFile: {
+                                  fields: ["ext", "url", "formats"],
+                                },
+                              },
                             },
                           },
                         },

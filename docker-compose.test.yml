@@ -31,7 +31,7 @@ services:
       - ./frontend:/app
       - ./frontend/.env:/opt/app/.env
     environment:
-      - NODE_ENV: development
+      NODE_ENV: development
     restart: unless-stopped
     networks:
       - zorzon_test

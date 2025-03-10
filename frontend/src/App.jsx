@@ -16,6 +16,7 @@ import UserProject from "./user/components/UserProject";
 import useFetchGlobalSettings from "./main/hooks/useFetchGlobalSettings";
 import LogOut from "./user/utility/LogOut";
 import LogIn from "./user/utility/LogIn";
+import "./App.css";
 
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 

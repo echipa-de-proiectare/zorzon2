@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_elements_document_files",
+  "info": {
+    "displayName": "mediaDoc",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "MediaFile": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

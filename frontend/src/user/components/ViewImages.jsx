@@ -1,16 +1,16 @@
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 import { useEffect, useState } from "react";
-import ImageSwiper from "./ImageSwiper";
-import ImageModal from "./ImageModal";
+import ImageSwiper from "../../components/ImageSwiper";
+import ImageModal from "../../components/ImageModal";
 
 const ViewImages = ({ document, activeImage, setActiveImage }) => {
   const [isModalActive, setIsModalActive] = useState(false);
-  console.log(document);
-  const images = document.document;
+  //Extract and map MediaDoc into images
+  const images = document.MediaDoc.map((doc) => doc.MediaFile);
   return (
-    <div className="container ">
-      <div className="columns is-flex is-flex-wrap-wrap is-mobile">
-        <div className="column is-2 is-full-mobile">
+    <>
+      <div className="columns is-0 is-flex is-flex-wrap-wrap is-mobile">
+        <div className="column is-1 is-hidden-mobile is-full-mobile">
           <div className="grid is-flex is-flex-direction-column is-justify-content-left">
             {images.map((doc, index) => (
               <div
@@ -35,7 +35,7 @@ const ViewImages = ({ document, activeImage, setActiveImage }) => {
             ))}
           </div>
         </div>
-        <div className="column is-10 is-full-mobile">
+        <div className="column is-12-mobile  is-11-tablet is-full-mobile">
           <ImageSwiper
             activeImage={activeImage}
             images={images}
@@ -51,7 +51,7 @@ const ViewImages = ({ document, activeImage, setActiveImage }) => {
         activeImage={activeImage}
         setActiveImage={setActiveImage}
       />
-    </div>
+    </>
   );
 };
 

@@ -15,32 +15,11 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url
 ).toString();
 function PDFViewer({ document, reviewDate, phase }) {
-  const allPdfs = document.document;
+  const allPdfs = document.MediaDoc;
   const [activePdf, setActivePdf] = useState(allPdfs[0]);
   const [isModalActive, setIsModalActive] = useState(false);
-  const [scale, setScale] = useState(1); // Scale for responsiveness
   const containerRef = useRef(null); // Reference to container for resizing
 
-  useEffect(() => {
-    setActivePdf(allPdfs[0]);
-  }, [allPdfs]);
-  const calculateScale = () => {
-    if (containerRef.current) {
-      const containerWidth = containerRef.current.offsetWidth; // Get container width
-      const pdfBaseWidth = 1300; // Base width for the PDF
-      const newScale = containerWidth / pdfBaseWidth; // Calculate scale based on container width
-      setScale(newScale);
-    }
-  };
-
-  useEffect(() => {
-    calculateScale(); // Calculate scale on initial render
-    window.addEventListener("resize", calculateScale); // Recalculate on window resize
-
-    return () => {
-      window.removeEventListener("resize", calculateScale); // Cleanup event listener
-    };
-  }, []);
   const openModal = () => {
     setIsModalActive(true);
   };
@@ -50,17 +29,17 @@ function PDFViewer({ document, reviewDate, phase }) {
   };
 
   const downloadCurrentImage = () => {
-    const pdfUrl = `${API_URL}${activePdf.url}`;
-    saveAs(pdfUrl, "document.pdf"); // Pass the URL and file name
+    const pdfUrl = `${API_URL}${activePdf.MediaFile.url}`;
+    saveAs(pdfUrl, `${activePdf.Title}.pdf`); // Pass the URL and file name
   };
 
   const downloadAllImagesAsZip = async (allPdfs) => {
     const zip = new JSZip();
 
     // Add images to the ZIP archive
-    for (const [index, doc] of allPdfs.entries()) {
-      const pdfUrl = `${API_URL}${doc.url}`;
-      const pdfName = `document-${index + 1}.pdf`;
+    for (const doc of allPdfs) {
+      const pdfUrl = `${API_URL}${doc.MediaFile.url}`;
+      const pdfName = `${doc.Title}.pdf`;
 
       try {
         // Fetch the image data as a Blob
@@ -70,7 +49,7 @@ function PDFViewer({ document, reviewDate, phase }) {
         // Add the Blob to the ZIP file
         zip.file(pdfName, blob);
       } catch (error) {
-        console.error(`Failed to fetch image ${pdfName}:`, error);
+        console.error(`Failed to fetch pdf ${pdfName}:`, error);
       }
     }
 
@@ -85,20 +64,21 @@ function PDFViewer({ document, reviewDate, phase }) {
     }
   };
   return (
-    <div className="container">
-      <div className="columns is-3">
-        <div className="column is-1">
+    <>
+      <div className="columns is-0 ">
+        {/* this is for the thumbnails column */}
+        {/* <div className="column is-1">
           <div className="grid is-flex is-flex-direction-column is-justify-content-left">
             {allPdfs &&
               allPdfs.map((doc) => (
                 <Document
                   key={doc.id}
-                  file={`${API_URL}${doc.url}`}
-                  onClick={() => setActivePdf(doc)}
+                  file={`${API_URL}${doc.MediaFile.url}`}
+                  onClick={() => setActivePdf(doc.MediaFile)}
+                  className="cell"
                 >
                   <Page
                     pageNumber={1}
-                    scale={0.05}
                     style={{
                       opacity: activePdf.id === doc.id ? "1" : "0",
                     }}
@@ -106,9 +86,10 @@ function PDFViewer({ document, reviewDate, phase }) {
                 </Document>
               ))}
           </div>
-        </div>
+        </div> */}
+
         <div
-          className="column is-three-fifths"
+          className="column is-10 "
           ref={containerRef}
           style={{
             height: "auto",
@@ -117,24 +98,38 @@ function PDFViewer({ document, reviewDate, phase }) {
           }}
         >
           <Document
-            file={`${API_URL}${activePdf.url}`}
+            file={`${API_URL}${activePdf.MediaFile.url}`}
             onClick={() => openModal()}
             loading={<LoadingIcon />}
           >
-            <Page
-              pageNumber={1}
-              scale={scale}
-              style={{
-                margin: "0 auto", // Center the PDF page
-              }}
-            ></Page>
+            <Page pageNumber={1}></Page>
           </Document>
         </div>
-        <InfoSidebar
-          document={document}
-          downloadCurrent={downloadCurrentImage}
-          downloadAll={downloadAllImagesAsZip}
-        />
+        <div className="column is-2">
+          <InfoSidebar
+            document={document}
+            downloadCurrent={downloadCurrentImage}
+            downloadAll={downloadAllImagesAsZip}
+          />
+          <aside className="menu">
+            <p className="menu-label">Planse PDF</p>
+            <ul className="menu-list">
+              {allPdfs &&
+                allPdfs.map((doc) => (
+                  <li key={doc.id}>
+                    <a
+                      className={`m-0 p-0 ${
+                        activePdf.Title === doc.Title ? "is-active" : ""
+                      }`}
+                      onClick={() => setActivePdf(doc)}
+                    >
+                      {doc.Title}
+                    </a>
+                  </li>
+                ))}
+            </ul>
+          </aside>
+        </div>
       </div>
       <>
         {isModalActive && (
@@ -164,7 +159,7 @@ function PDFViewer({ document, reviewDate, phase }) {
           </div>
         )}
       </>
-    </div>
+    </>
   );
 }
 

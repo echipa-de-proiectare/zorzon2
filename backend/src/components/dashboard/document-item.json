@@ -6,17 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "document": {
-      "type": "media",
-      "multiple": true,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
     "ReviewDate": {
       "type": "date",
       "required": true
@@ -34,6 +23,11 @@
     },
     "description": {
       "type": "richtext"
+    },
+    "MediaDoc": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.document-file"
     }
   }
 }

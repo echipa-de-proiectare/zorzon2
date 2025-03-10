@@ -20,10 +20,7 @@ export interface DashboardDocumentItem extends Struct.ComponentSchema {
   };
   attributes: {
     description: Schema.Attribute.RichText;
-    document: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
+    MediaDoc: Schema.Attribute.Component<'elements.document-file', true>;
     modelurl: Schema.Attribute.String;
     ReviewDate: Schema.Attribute.Date & Schema.Attribute.Required;
     type: Schema.Attribute.Enumeration<['model', 'document']> &
@@ -53,6 +50,18 @@ export interface DashboardProjectPhase extends Struct.ComponentSchema {
   attributes: {
     item: Schema.Attribute.Component<'dashboard.phase-item', true>;
     name: Schema.Attribute.String;
+  };
+}
+
+export interface ElementsDocumentFile extends Struct.ComponentSchema {
+  collectionName: 'components_elements_document_files';
+  info: {
+    description: '';
+    displayName: 'mediaDoc';
+  };
+  attributes: {
+    MediaFile: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    Title: Schema.Attribute.String;
   };
 }
 
@@ -100,6 +109,7 @@ declare module '@strapi/strapi' {
       'dashboard.document-item': DashboardDocumentItem;
       'dashboard.phase-item': DashboardPhaseItem;
       'dashboard.project-phase': DashboardProjectPhase;
+      'elements.document-file': ElementsDocumentFile;
       'elements.link': ElementsLink;
       'layout.footer': LayoutFooter;
       'layout.top-navigation': LayoutTopNavigation;

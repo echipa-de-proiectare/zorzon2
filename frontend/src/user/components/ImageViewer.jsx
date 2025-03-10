@@ -4,23 +4,23 @@ import { useEffect, useState } from "react";
 import { saveAs } from "file-saver"; // Import file-saver
 import JSZip from "jszip"; // Import jszip for creating ZIP files
 import InfoSidebar from "./InfoSidebar";
-import ViewImages from "../../components/ViewImages";
+import ViewImages from "./ViewImages";
 
 const ImageViewer = ({ document, reviewDate, phase }) => {
   const [activeImage, setActiveImage] = useState(0);
-  const allImages = document.document;
+  const allImages = document.MediaDoc;
 
   const downloadCurrentImage = () => {
-    const imageUrl = `${API_URL}${allImages[activeImage].formats.large.url}`;
-    saveAs(imageUrl, "image.jpg"); // Pass the URL and file name
+    const imageUrl = `${API_URL}${allImages[activeImage].MediaFile.formats.large.url}`;
+    saveAs(imageUrl, `${allImages[activeImage].Title}`);
   };
   const downloadAllImagesAsZip = async (images) => {
     const zip = new JSZip();
 
     // Add images to the ZIP archive
-    for (const [index, image] of images.entries()) {
-      const imageUrl = `${API_URL}${image.url}`;
-      const imageName = `image-${index + 1}.jpg`;
+    for (const image of images) {
+      const imageUrl = `${API_URL}${image.MediaFile.formats.large.url}`;
+      const imageName = `${image.Title}`;
 
       try {
         // Fetch the image data as a Blob
@@ -46,23 +46,20 @@ const ImageViewer = ({ document, reviewDate, phase }) => {
   };
 
   return (
-    <div className="container">
-      <div className="columns">
-        <div className="column is-three-fifths">
-          <ViewImages
-            document={document}
-            activeImage={activeImage}
-            setActiveImage={setActiveImage}
-          />
-        </div>
-        <div className="column is-two-fifths">
-          <InfoSidebar
-            document={document}
-            downloadCurrent={downloadCurrentImage}
-            downloadAll={downloadAllImagesAsZip}
-          />
-        </div>
+    <div className="columns is-0">
+      <div className="column is-10">
+        <ViewImages
+          document={document}
+          activeImage={activeImage}
+          setActiveImage={setActiveImage}
+        />
       </div>
+
+      <InfoSidebar
+        document={document}
+        downloadCurrent={downloadCurrentImage}
+        downloadAll={downloadAllImagesAsZip}
+      />
     </div>
   );
 };

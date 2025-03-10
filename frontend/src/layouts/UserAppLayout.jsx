@@ -20,10 +20,8 @@ const UserAppLayout = ({ globalSettings }) => {
 
   return (
     <ProjectContext.Provider value={project}>
-      <div className="is-flex is-flex-direction-column is-justify-content-space-between">
-        <Nav topNavigation={topNavigation} logoSecondary={logoSecondary} />
-        <Outlet />
-      </div>
+      <Nav topNavigation={topNavigation} logoSecondary={logoSecondary} />
+      <Outlet />
     </ProjectContext.Provider>
   );
 };

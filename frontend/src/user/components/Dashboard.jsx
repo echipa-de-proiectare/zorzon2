@@ -5,7 +5,7 @@ const Dashboard = ({ setPhaseName, phaseName }) => {
   const project = useProjectContext();
 
   return (
-    <aside className="menu">
+    <aside className="menu sticky-menu">
       <p className="menu-label"> {project.name} </p>
       <ul className="menu-list">
         {project.phase.map((phase) => (
