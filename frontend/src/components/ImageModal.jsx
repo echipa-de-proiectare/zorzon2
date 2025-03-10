@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import ImageSwiper from "./ImageSwiper";
 
 const ImageModal = ({

@@ -19,7 +19,9 @@ function PDFViewer({ document, reviewDate, phase }) {
   const [activePdf, setActivePdf] = useState(allPdfs[0]);
   const [isModalActive, setIsModalActive] = useState(false);
   const containerRef = useRef(null); // Reference to container for resizing
-
+  useEffect(() => {
+    setActivePdf(allPdfs[0]);
+  }, [reviewDate, allPdfs]);
   const openModal = () => {
     setIsModalActive(true);
   };
@@ -134,26 +136,30 @@ function PDFViewer({ document, reviewDate, phase }) {
       <>
         {isModalActive && (
           <div className={`modal ${isModalActive ? "is-active" : ""}`}>
-            <div className="modal-background" onClick={closeModal}></div>
+            <div className="modal-background " onClick={closeModal}></div>
             <div
-              className="modal-content "
-              style={{ width: "auto", height: "100%" }}
+              className="modal-content is-flex-mobile is-align-items-center "
+              style={{ width: "auto", height: "100vh" }}
             >
               <TransformWrapper
-                minScale={1} // Minimum scale to prevent the image from shrinking too much
+                minScale={0.5} // Minimum scale to prevent the image from shrinking too much
                 maxScale={3} // Maximum scale to prevent excessive zooming
                 centerZoomedOut={true} // Center the image when zoomed out
+                initialScale={0.8}
               >
                 <TransformComponent>
-                  <Document file={`${API_URL}${activePdf.url}`}>
-                    <Page pageNumber={1} scale={1.1}></Page>
-                  </Document>
+                  <div>
+                    <Document file={`${API_URL}${activePdf.MediaFile.url}`}>
+                      <Page pageNumber={1} scale={1}></Page>
+                    </Document>
+                  </div>
                 </TransformComponent>
               </TransformWrapper>
             </div>
             <button
               className="modal-close is-large"
               aria-label="close"
+              style={{ backgroundColor: "gray" }}
               onClick={closeModal}
             ></button>
           </div>

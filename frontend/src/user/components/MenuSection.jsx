@@ -27,7 +27,7 @@ const MenuSection = ({ phase, setPhaseName, phaseName }) => {
                     }
               }
             >
-              <span className="icon-text is-flex is-justify-content-space-between">
+              <span className="icon-text is-flex is-justify-content-space-between is-align-items-center">
                 <span>{element.name}</span>
                 {!element.available && (
                   <span className="icon is-small">

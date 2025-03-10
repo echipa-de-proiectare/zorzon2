@@ -1,7 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Zoom, Navigation, Pagination } from "swiper/modules";
 import { useEffect, useRef } from "react";
 import "swiper/css";
+import "swiper/css/zoom";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "../scss/ImageSwiper.css";
@@ -32,13 +33,14 @@ const ImageSwiper = ({
           setActiveImage(() => currentIndex); // Use functional update
         }}
         loop={images.length > 1 ? true : false}
+        zoom={true}
         navigation={true}
         pagination={{
           clickable: true,
         }}
         spaceBetween={30}
         slidesPerView={1}
-        modules={[Navigation, Pagination]}
+        modules={[Zoom, Navigation, Pagination]}
         className="mySwiper"
       >
         {images.map((image) => (
@@ -49,7 +51,7 @@ const ImageSwiper = ({
               userSelect: "none", // Prevent accidental text/image selection
             }}
           >
-            <figure className="image">
+            <figure className="image swiper-zoom-container">
               <img
                 loading="lazy"
                 src={`${API_URL}${image.formats.thumbnail.url}`} // Fallback document for older browsers

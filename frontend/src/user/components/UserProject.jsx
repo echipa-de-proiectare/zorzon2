@@ -13,15 +13,16 @@ const UserProject = () => {
     project.phase[0].item[0].DocumentItem[0]
   );
 
-  const [reviewDate, setReviewDate] = useState(
-    project.phase[0].item[0].DocumentItem[0].ReviewDate
-  );
   const [phaseName, setPhaseName] = useState(project.phase[0].item[0].name);
 
   const reviewDates = project?.phase.flatMap((phase) =>
     phase.item?.flatMap((item) =>
       item.DocumentItem?.flatMap((doc) => doc.ReviewDate)
     )
+  );
+
+  const [reviewDate, setReviewDate] = useState(
+    reviewDates[reviewDates.length - 1]
   );
   const uniqueSortedDates = [...new Set(reviewDates)].sort(
     (a, b) => new Date(a) - new Date(b)
