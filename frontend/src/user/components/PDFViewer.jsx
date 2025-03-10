@@ -138,7 +138,7 @@ function PDFViewer({ document, reviewDate, phase }) {
           <div className={`modal ${isModalActive ? "is-active" : ""}`}>
             <div className="modal-background " onClick={closeModal}></div>
             <div
-              className="modal-content is-flex-mobile is-align-items-center "
+              className="modal-content"
               style={{ width: "auto", height: "100vh" }}
             >
               <TransformWrapper
@@ -148,7 +148,7 @@ function PDFViewer({ document, reviewDate, phase }) {
                 initialScale={0.8}
               >
                 <TransformComponent>
-                  <div>
+                  <div style={{ width: "auto", height: "100vh" }}>
                     <Document file={`${API_URL}${activePdf.MediaFile.url}`}>
                       <Page pageNumber={1} scale={1}></Page>
                     </Document>
