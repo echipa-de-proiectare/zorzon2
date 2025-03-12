@@ -24,7 +24,7 @@ const GoogleAuthRedirect = () => {
         localStorage.setItem("user", JSON.stringify(user));
 
         setUser(user); // Update user state in context
-        navigate("/user");
+        navigate("/user/profile");
       } catch (err) {
         console.error("Error during authentication", err);
       }

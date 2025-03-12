@@ -72,7 +72,11 @@ function App() {
           >
             <Route
               path="profile"
-              element={<Protector Component={<UserHome />} />}
+              element={
+                <Protector
+                  Component={<UserHome globalSettings={globalSettings} />}
+                />
+              }
             />
             <Route
               path="project"
