@@ -12,7 +12,14 @@ const MenuSection = ({ phase, setPhaseName, phaseName }) => {
       </span>
       <ul>
         {phase.item.map((element) => (
-          <li key={element.id} onClick={() => onItemClick(element)}>
+          <li
+            key={element.id}
+            onClick={() => {
+              if (element.available) {
+                onItemClick(element);
+              }
+            }}
+          >
             <a
               className={`has-background-inherit m-0 p-0 ${
                 phaseName === element.name ? "is-active" : ""
@@ -23,7 +30,6 @@ const MenuSection = ({ phase, setPhaseName, phaseName }) => {
                   : {
                       pointerEvents: "none",
                       color: "gray",
-                      cursor: "not-allowed",
                     }
               }
             >

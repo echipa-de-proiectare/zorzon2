@@ -86,7 +86,7 @@ const UserProject = () => {
                 </div>
               ) : null
             ) : (
-              <p>No document available at the selected review date.</p>
+              <p>Aceasta etapa nu este disponibila pentru data selectata.</p>
             )}
           </div>
         </div>

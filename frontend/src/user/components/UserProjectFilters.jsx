@@ -11,7 +11,7 @@ const UserProjectFilters = ({
 
   return (
     <>
-      <p>Review Date</p>
+      <p>Versiune</p>
       <div className="dropdown is-hoverable">
         <div className="dropdown-trigger">
           <button
