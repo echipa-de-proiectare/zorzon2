@@ -1,9 +1,28 @@
-# Serve the frontend
+# Serve the frontend (React/Vite app)
+
 zorzon.com.ro {
-    reverse_proxy frontend:80  # Proxy to the 'frontend' container
+reverse_proxy frontend:80
+header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    @notFound {
+        not file
+    }
+    rewrite @notFound /index.html
+
 }
 
-# Proxy requests to Strapi
+# Proxy requests to Strapi (Admin panel)
+
 admin.zorzon.com.ro {
-    reverse_proxy backend:1338  # Proxy to the 'backend' container
+reverse_proxy backend:1338 {
+header_up X-Forwarded-Proto {scheme}
+header_up X-Forwarded-For {remote}
+}
+header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+}
+
+# Redirect www to non-www with 301 (SEO Best Practice)
+
+www.zorzon.com.ro {
+redir https://zorzon.com.ro{uri} permanent
 }
