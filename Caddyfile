@@ -1,7 +1,7 @@
 # Serve the frontend (React/Vite app)
 
 zorzon.com.ro {
-reverse_proxy frontend:80
+reverse_proxy zorzon_frontend:80 # Proxy to the production frontend container
 header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 
     @notFound {
@@ -14,7 +14,7 @@ header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 # Proxy requests to Strapi (Admin panel)
 
 admin.zorzon.com.ro {
-reverse_proxy backend:1338 {
+reverse_proxy zorzon_backend:1338 {
 header_up X-Forwarded-Proto {scheme}
 header_up X-Forwarded-For {remote}
 }
@@ -25,4 +25,18 @@ header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 
 www.zorzon.com.ro {
 redir https://zorzon.com.ro{uri} permanent
+}
+
+# Proxy requests to the test backend
+
+test-admin.zorzon.com.ro {
+reverse_proxy zorzon_backend_test:1337 {
+header_up X-Forwarded-Proto https
+}
+}
+
+# Serve the test frontend
+
+test.zorzon.com.ro {
+reverse_proxy zorzon_frontend_test:80
 }
