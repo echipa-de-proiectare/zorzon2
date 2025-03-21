@@ -1,17 +1,19 @@
 # Serve the production frontend (React/Vite app)
 
-zorzon.com.ro, www.zorzon.com.ro {
-reverse_proxy zorzon_frontend:80
+zorzon.com.ro {
 header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 
-    # Ensure client-side routing works
-    try_files {path} /index.html
+    # Serve the frontend (React/Vite app)
+    reverse_proxy zorzon_frontend:80
 
 }
 
 # Redirect www to non-www (No Need for Separate Block Now)
 
 www.zorzon.com.ro {
+tls {
+issuer acme
+}
 redir https://zorzon.com.ro{uri} permanent
 }
 
