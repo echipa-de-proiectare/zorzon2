@@ -21,8 +21,7 @@ redir https://zorzon.com.ro{uri} permanent
 
 admin.zorzon.com.ro {
 reverse_proxy zorzon_backend:1338 {
-header_up X-Forwarded-Proto {scheme}
-header_up X-Forwarded-For {remote}
+
 }
 header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 }
