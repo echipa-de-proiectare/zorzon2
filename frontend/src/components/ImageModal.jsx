@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import ImageSwiper from "./ImageSwiper";
 
 const ImageModal = ({
@@ -7,6 +8,16 @@ const ImageModal = ({
   activeImage,
   setActiveImage,
 }) => {
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape") {
+        setIsModalActive(false);
+      }
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
+
   return (
     <>
       {isModalActive && (

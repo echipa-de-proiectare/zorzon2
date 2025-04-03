@@ -1,4 +1,4 @@
-import { act, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
@@ -19,6 +19,16 @@ function PDFViewer({ document, reviewDate, phase }) {
   const [activePdf, setActivePdf] = useState(allPdfs[0]);
   const [isModalActive, setIsModalActive] = useState(false);
   const containerRef = useRef(null); // Reference to container for resizing
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape") {
+        setIsModalActive(false);
+      }
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
+
   useEffect(() => {
     setActivePdf(allPdfs[0]);
   }, [reviewDate, allPdfs]);
@@ -136,26 +146,26 @@ function PDFViewer({ document, reviewDate, phase }) {
       <>
         {isModalActive && (
           <div className={`modal ${isModalActive ? "is-active" : ""}`}>
-            <div className="modal-background " onClick={closeModal}></div>
+            <div className="modal-background" onClick={closeModal}></div>
             <div
               className="modal-content"
-              style={{ width: "auto", height: "100vh" }}
+              style={{ width: "100vw", height: "100vh" }}
             >
-              <TransformWrapper
-                minScale={0.5} // Minimum scale to prevent the image from shrinking too much
-                maxScale={3} // Maximum scale to prevent excessive zooming
-                centerZoomedOut={true} // Center the image when zoomed out
-                initialScale={0.8}
-              >
-                <TransformComponent>
-                  <div style={{ width: "auto", height: "100vh" }}>
-                    <Document file={`${API_URL}${activePdf.MediaFile.url}`}>
-                      <Page pageNumber={1} scale={1}></Page>
-                    </Document>
-                  </div>
-                </TransformComponent>
-              </TransformWrapper>
+              <Document file={`${API_URL}${activePdf.MediaFile.url}`}>
+                <TransformWrapper
+                  initialScale={1}
+                  minScale={0.5}
+                  maxScale={3}
+                  limitToBounds={false}
+                  centerOnInit={true}
+                >
+                  <TransformComponent>
+                    <Page pageNumber={1} />
+                  </TransformComponent>
+                </TransformWrapper>
+              </Document>
             </div>
+
             <button
               className="modal-close is-large"
               aria-label="close"
