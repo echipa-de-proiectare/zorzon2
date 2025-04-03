@@ -10,6 +10,8 @@ import JSZip from "jszip"; // Import jszip for creating ZIP files
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 import InfoSidebar from "./InfoSidebar";
 import LoadingIcon from "../../elements/loadingIcon";
+
+import "../styles/PDFViewer.css";
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
   import.meta.url
@@ -157,7 +159,7 @@ function PDFViewer({ document, reviewDate, phase }) {
                   minScale={0.5}
                   maxScale={3}
                   limitToBounds={false}
-                  centerOnInit={true}
+                  centerOnInit={false}
                 >
                   <TransformComponent>
                     <Page pageNumber={1} />
