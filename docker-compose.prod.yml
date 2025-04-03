@@ -79,3 +79,5 @@ volumes:
 networks:
   zorzon:
     driver: bridge
+  zorzon2-test_zorzon_test:
+    external: true
