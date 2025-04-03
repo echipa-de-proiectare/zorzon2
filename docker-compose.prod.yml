@@ -5,6 +5,7 @@ services:
     platform: linux/arm64 # Ensuring compatibility with ARM-based systems
     networks:
       - zorzon
+      - zorzon2-test_zorzon_test
     ports:
       - "80:80" # HTTP
       - "443:443" # HTTPS
