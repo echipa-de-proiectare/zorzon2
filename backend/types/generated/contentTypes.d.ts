@@ -535,8 +535,8 @@ export interface ApiUserProjectUserProject extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    users_permissions_user: Schema.Attribute.Relation<
-      'manyToOne',
+    users_permissions_users: Schema.Attribute.Relation<
+      'manyToMany',
       'plugin::users-permissions.user'
     >;
   };
@@ -1033,7 +1033,7 @@ export interface PluginUsersPermissionsUser
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     user_projects: Schema.Attribute.Relation<
-      'oneToMany',
+      'manyToMany',
       'api::user-project.user-project'
     >;
     username: Schema.Attribute.String &

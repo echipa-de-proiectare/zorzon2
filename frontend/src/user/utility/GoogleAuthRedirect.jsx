@@ -7,7 +7,7 @@ const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
 const GoogleAuthRedirect = () => {
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  const { setUser, setJwt } = useContext(UserContext);
 
   useEffect(() => {
     const fetchAuthData = async () => {
@@ -20,10 +20,11 @@ const GoogleAuthRedirect = () => {
 
         const { jwt, user } = res.data;
 
-        localStorage.setItem("jwt", jwt);
-        localStorage.setItem("user", JSON.stringify(user));
-
-        setUser(user); // Update user state in context
+        // Don't store jwt in localStorage!
+        setJwt(jwt); // store in memory only
+        sessionStorage.setItem("jwt", jwt);
+        localStorage.setItem("user", JSON.stringify(user)); // optional
+        setUser(user);
         navigate("/user/profile");
       } catch (err) {
         console.error("Error during authentication", err);
@@ -31,7 +32,7 @@ const GoogleAuthRedirect = () => {
     };
 
     fetchAuthData();
-  }, [navigate, setUser]);
+  }, [navigate, setJwt, setUser]);
 
   return <LoadingIcon />;
 };

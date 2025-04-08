@@ -1,19 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../utility/UserContext";
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
 export const useFetchUserProjects = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [projects, setProjects] = useState();
+  const context = useContext(UserContext);
+  const jwt = context.jwt || sessionStorage.getItem("jwt");
 
   useEffect(() => {
-    const token = localStorage.getItem("jwt");
     fetch(`${API_URL}/api/user-projects/my-projects`, {
       mode: "cors",
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${jwt}`,
       },
     })
       .then((response) => response.json())
@@ -31,15 +33,16 @@ export const useFetchNotAllwedUser = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState();
+  const context = useContext(UserContext);
+  const jwt = context.jwt || sessionStorage.getItem("jwt");
 
   useEffect(() => {
-    const token = localStorage.getItem("jwt");
     fetch(`${API_URL}/api/not-allowed-user?populate=*`, {
       mode: "cors",
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${jwt}`,
       },
     })
       .then((response) => response.json())
@@ -58,16 +61,18 @@ export const useFetchUserProject = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [project, setProject] = useState();
+  const context = useContext(UserContext);
+  const jwt = context.jwt || sessionStorage.getItem("jwt");
 
   useEffect(() => {
     setLoading(true); // Begin loading only when IDs are valid
-    const token = localStorage.getItem("jwt");
+
     fetch(`${API_URL}/api/project-phases`, {
       mode: "cors",
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${jwt}`,
       },
     })
       .then((response) => response.json())

@@ -82,10 +82,7 @@ function App() {
               path="project"
               element={<Protector Component={<UserProject />} />}
             />
-            <Route
-              path="log-out"
-              element={<Protector Component={<LogOut />} />}
-            />
+            <Route path="log-out" element={<LogOut />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,14 +1,20 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
-import LoadingIcon from "../../elements/loadingIcon";
 import { Navigate } from "react-router-dom";
+import LoadingIcon from "../../elements/loadingIcon";
 
 const LogOut = () => {
   const { setUser } = useContext(UserContext);
-  localStorage.removeItem("jwt");
-  localStorage.removeItem("user");
-  setUser(null);
-  Navigate("/");
+  const [redirect, setRedirect] = useState(false);
+
+  useEffect(() => {
+    sessionStorage.removeItem("jwt");
+    localStorage.removeItem("user");
+    setUser(null);
+    setRedirect(true);
+  }, [setUser]);
+
+  if (redirect) return <Navigate to="/" />;
   return <LoadingIcon />;
 };
 

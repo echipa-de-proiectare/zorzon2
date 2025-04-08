@@ -32,7 +32,9 @@ function PDFViewer({ document, reviewDate, phase }) {
   }, []);
 
   useEffect(() => {
-    setActivePdf(allPdfs[0]);
+    if (allPdfs && allPdfs.length > 0) {
+      setActivePdf(allPdfs[0]);
+    }
   }, [reviewDate, allPdfs]);
   const openModal = () => {
     setIsModalActive(true);

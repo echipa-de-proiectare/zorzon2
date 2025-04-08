@@ -5,6 +5,7 @@ const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 const UserHome = ({ globalSettings }) => {
   const { user } = useContext(UserContext);
   const logoSecondary = globalSettings.logo_secondary;
+
   if (!user) return <p>Loading...</p>;
 
   return (

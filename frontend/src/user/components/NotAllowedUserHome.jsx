@@ -5,13 +5,14 @@ import { useFetchNotAllwedUser } from "../hooks/useFetchUserProjects";
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
 const NotAllowedUserHome = () => {
-  const { user } = useContext(UserContext);
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+
   const { loading, error, message } = useFetchNotAllwedUser();
 
   const handleLogoutClick = () => {
     // Clear user session or token
-    localStorage.removeItem("jwt");
+    sessionStorage.removeItem("jwt");
+
     localStorage.removeItem("user");
 
     setUser(null); // Update user state in context

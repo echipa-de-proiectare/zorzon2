@@ -5,7 +5,7 @@ import ImageModal from "./ImageModal";
 
 const ViewImages = ({ document, activeImage, setActiveImage }) => {
   const [isModalActive, setIsModalActive] = useState(false);
-  console.log(document);
+
   const images = document.document;
   return (
     <div className="container ">

@@ -52,7 +52,11 @@ module.exports = createCoreController(
         "api::user-project.user-project",
         {
           filters: {
-            users_permissions_user: user.id, // Ensure projects belong to logged-in user
+            users_permissions_users: {
+              id: {
+                $in: [user.id],
+              },
+            },
           },
           populate: {
             phase: {

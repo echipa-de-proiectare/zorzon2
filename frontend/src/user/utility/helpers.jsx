@@ -1,5 +1,7 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import LoadingIcon from "../../elements/loadingIcon";
+import { UserContext } from "./UserContext";
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 export const userData = () => {
   const stringifiedUser = localStorage.getItem("user");
@@ -10,15 +12,18 @@ export const userData = () => {
 };
 
 export const Protector = ({ Component }) => {
-  const navigate = useNavigate();
-  const jwt = userData();
+  const { jwt, hydrated } = useContext(UserContext);
+  const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    if (!jwt) {
-      navigate("/");
+    if (hydrated) {
+      setChecking(false);
     }
-  }, [navigate, jwt]);
+  }, [hydrated]);
 
+  if (checking) return <LoadingIcon />;
+
+  if (!jwt) return <Navigate to="/" />;
   return Component;
 };
 
