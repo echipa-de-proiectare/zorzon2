@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../utility/UserContext";
 import { useFetchNotAllwedUser } from "../hooks/useFetchUserProjects";
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
@@ -18,13 +18,13 @@ const NotAllowedUserHome = () => {
     setUser(null); // Update user state in context
     // Redirect to homepage after logout
   };
-
+  if (!user || !sessionStorage.getItem("jwt")) {
+    return <Navigate to="/" />;
+  }
   if (error) return <p>A network error was encountered</p>;
-  if (loading) return <p>Loading...</p>;
+  if (loading || !message) return <p>Loading...</p>;
 
-  return user === null ? (
-    <p>Loading...</p>
-  ) : (
+  return (
     <section className="hero is-fullheight">
       <div className="hero-body columns">
         <div className="column is-one-third">
