@@ -16,8 +16,12 @@ test-admin.zorzon.com.ro {
 # Serve the test frontend
 test.zorzon.com.ro {
     reverse_proxy zorzon_frontend_test:80
+    # Any request to "https://test.zorzon.com.ro/ar/..." goes to the test AR-viewer
+    handle_path /ar/* {
+        # Assuming your test AR-viewer service/container is named "zorzon_arviewer_test"
+        # and is listening on port 5174.
+        reverse_proxy zorzon_arviewer_test:5174
+}
 }
 
-viewer.zorzon.com.ro {
-  reverse_proxy ar-viewer:5174
-}
+
