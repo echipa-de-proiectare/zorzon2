@@ -14,7 +14,8 @@
       "type": "enumeration",
       "enum": [
         "model",
-        "document"
+        "document",
+        "ar"
       ],
       "required": true
     },

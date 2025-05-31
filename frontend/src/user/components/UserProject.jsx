@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import UserProjectFilters from "./UserProjectFilters";
 import Dashboard from "./Dashboard";
 import { useProjectContext } from "../../layouts/UserAppLayout";
+import ArViewer from "./ArViewer";
 
 const UserProject = () => {
   const project = useProjectContext();
@@ -83,6 +84,10 @@ const UserProject = () => {
               ) : documentItem.type === "model" ? (
                 <div style={{ height: "80vh", display: "flex" }}>
                   <ThreeDViewer document={documentItem.modelurl} />
+                </div>
+              ) : documentItem.type === "ar" ? (
+                <div style={{ height: "80vh", display: "flex" }}>
+                  <ArViewer />
                 </div>
               ) : null
             ) : (

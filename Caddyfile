@@ -17,3 +17,7 @@ test-admin.zorzon.com.ro {
 test.zorzon.com.ro {
     reverse_proxy zorzon_frontend_test:80
 }
+
+viewer.zorzon.com.ro {
+  reverse_proxy ar-viewer:5174
+}

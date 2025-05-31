@@ -29,6 +29,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
       - ./frontend/.env:/opt/app/.env
+    command: npm run dev -- --host 0.0.0.0 --port 5173
     ports:
       - "5173:5173"
     environment:
@@ -36,6 +37,11 @@ services:
     restart: unless-stopped
     networks:
       - zorzon
+
+  ar-viewer:
+    build: ./ar-viewer
+    ports:
+      - "5174:5174"
 
   db:
     container_name: zorzon_db
