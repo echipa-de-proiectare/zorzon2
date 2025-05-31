@@ -21,7 +21,7 @@ test.zorzon.com.ro {
         # Assuming your test AR-viewer service/container is named "zorzon_arviewer_test"
         # and is listening on port 5174.
         reverse_proxy zorzon_arviewer_test:5174
-}
+    }
 }
 
 

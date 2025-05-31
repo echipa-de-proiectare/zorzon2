@@ -20,7 +20,7 @@ export const Protector = ({ Component }) => {
       setChecking(false);
     }
   }, [hydrated]);
-  console.log("hydrated:", hydrated, "jwt:", jwt);
+
   if (checking) return <LoadingIcon />;
 
   if (!jwt) return <Navigate to="/" />;
