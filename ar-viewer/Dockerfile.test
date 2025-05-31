@@ -1,0 +1,22 @@
+# ar-viewer/Dockerfile.test
+
+# 1. Use a lightweight Node image
+FROM node:18-alpine
+
+# 2. Set the working directory inside the container
+WORKDIR /app
+
+# 3. Copy package.json and lockfile, then install dependencies
+COPY package*.json ./
+RUN npm ci
+
+# 4. Copy the rest of your AR-viewer source code
+COPY . .
+
+# 5. Expose the port your AR viewer’s dev server will run on
+EXPOSE 5174
+
+# 6. Run the “dev” script (assumes your package.json has:
+#      "dev": "vite --port 5174"
+#    or uses VITE_HOST from .env.test for binding)
+CMD ["npm", "run", "dev"]
