@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useFetchUserProject } from "./useFetchUserProject";
+import "@google/model-viewer";
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
   }
   const documentAr =
     project.phase[2].item[0].DocumentItem[0].MediaDoc[0].MediaFile.url;
-  console.log(documentAr);
+
   return (
     <>
       {/* Inline styles transferred from index.html */}
