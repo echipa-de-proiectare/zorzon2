@@ -6,13 +6,10 @@ export default defineConfig({
   plugins: [react()],
 
   server: {
-    host: "0.0.0.0",
+    // Tell Vite to accept *any* Host header
+    host: true,
     port: 5174,
-    // Allow requests from arbitrary Host headers (e.g. Caddy’s proxy)
-    // In Vite v4+, “host: true” is enough; in older versions, you can use allowedHosts
-    // host: true,
     strictPort: true,
     cors: true,
-    host: true,
   },
 });
