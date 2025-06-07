@@ -1,0 +1,18 @@
+FROM node:18 AS development
+
+WORKDIR /app
+
+# Copy package files
+COPY ar-viewer/package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy source code
+COPY ar-viewer/ ./
+
+# Expose port used by Vite
+EXPOSE 5174
+
+# Run Vite in development mode
+CMD ["npm", "run", "dev"]

@@ -52,7 +52,7 @@ services:
     volumes:
       - ./ar-viewer:/app
       - /app/node_modules
-
+      - ./ar-viewer/.env:/opt/app/.env
     ports:
       - "5174:5174"
     environment:

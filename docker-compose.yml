@@ -1,92 +1,80 @@
-version: "3.8"
-
 services:
-  backend-test:
-    container_name: zorzon_backend_test
+  backend:
+    container_name: zorzon_backend
     build:
-      context: ./backend
-      dockerfile: Dockerfile.test
-    platform: linux/arm64
+      context: .
+      dockerfile: ./backend/Dockerfile.dev
+    platform: linux/amd64 #for platform error on Apple M1 chips
     volumes:
-      - strapi_test_media:/app/public/uploads
+      - ./backend:/app
+      - /app/node_modules
     ports:
       - "1337:1337"
     env_file:
       - ./backend/.env
     environment:
-      DATABASE_HOST: zorzon_db_test
-      NODE_ENV: development
-      URL: https://test-admin.zorzon.com.ro
-      TRUST_PROXY: true
+      DATABASE_HOST: zorzon_db
     depends_on:
-      - db-test
+      - db
     networks:
-      - zorzon_test
+      - zorzon
 
-  frontend-test:
-    container_name: zorzon_frontend_test
+  frontend:
+    container_name: zorzon_frontend
     build:
-      context: ./frontend
-      dockerfile: Dockerfile.test
-    platform: linux/arm64
+      context: .
+      dockerfile: ./frontend/Dockerfile.dev
+    platform: linux/amd64 #for platform error on Apple M1 chips
     volumes:
       - ./frontend:/app
+      - /app/node_modules
       - ./frontend/.env:/opt/app/.env
     command: npm run dev -- --host 0.0.0.0 --port 5173
     ports:
       - "5173:5173"
     environment:
-      NODE_ENV: development
+      - NODE_ENV=development
     restart: unless-stopped
-    depends_on:
-      - backend-test
     networks:
-      - zorzon_test
+      - zorzon
 
-  ar-viewer-test:
-    container_name: zorzon_arviewer_test
+  ar-viewer:
+    container_name: zorzon_ar-viewer
     build:
-      context: ./ar-viewer
-      dockerfile: Dockerfile.test
-    platform: linux/arm64
+      context: .
+      dockerfile: ./ar-viewer/Dockerfile.dev
+    platform: linux/amd64 #for platform error on Apple M1 chips
     volumes:
       - ./ar-viewer:/app
       - /app/node_modules
-    command: npm run dev -- --host 0.0.0.0 --port 5174
+      - ./ar-viewer/.env:/opt/app/.env
     ports:
       - "5174:5174"
     environment:
-      NODE_ENV: development
+      - NODE_ENV=development
     restart: unless-stopped
-    depends_on:
-      - backend-test
     networks:
-      - zorzon_test
+      - zorzon
 
-  db-test:
-    container_name: zorzon_db_test
+  db:
+    container_name: zorzon_db
     image: postgres:15
-    platform: linux/arm64
+    platform: linux/amd64 #for platform error on Apple M1 chips
     volumes:
-      - postgres_test_data:/var/lib/postgresql/data
-      - ./backup:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+      - ./backup:/docker-entrypoint-initdb.d # Mount backup directory to init scripts
     environment:
       POSTGRES_USER: strapi
       POSTGRES_PASSWORD: strapi
-      POSTGRES_DB: strapi_test
+      POSTGRES_DB: strapi
     ports:
-      - "5432:5432"
+      - "5433:5432"
     networks:
-      - zorzon_test
+      - zorzon
 
 volumes:
-  postgres_test_data:
-  strapi_test_media:
-  caddy_test_data:
-  caddy_test_config:
+  postgres_data:
 
 networks:
-  zorzon_test:
-    driver: bridge
   zorzon:
-    external: true
+    driver: bridge
