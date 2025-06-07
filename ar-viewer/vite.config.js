@@ -3,13 +3,11 @@ import react from "@vitejs/plugin-react";
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: "/ar/",
   plugins: [react()],
 
   server: {
-    // Tell Vite to accept *any* Host header
-    host: true,
+    host: "0.0.0.0",
     port: 5174,
-    strictPort: true,
-    cors: true,
   },
 });
