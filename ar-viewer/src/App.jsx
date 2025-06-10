@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-/* 
+
 import { useFetchUserProject } from "./useFetchUserProject";
 import "@google/model-viewer";
-const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable */
+const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
 function App() {
-  /* const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(window.location.search);
   const token = params.get("token");
 
   const { loading, error, project } = useFetchUserProject(token);
@@ -16,12 +16,9 @@ function App() {
     return <p>Loading project…</p>;
   }
   const documentAr =
-    project.phase[2].item[0].DocumentItem[0].MediaDoc[0].MediaFile.url; */
-
+    project.phase[2].item[0].DocumentItem[0].MediaDoc[0].MediaFile.url;
   return (
     <>
-      {" "}
-      Hello
       {/* Inline styles transferred from index.html */}
       <style>
         {`/* Hide children until <model-viewer> is defined */
@@ -108,7 +105,7 @@ function App() {
         `}
       </style>
       {/* Model Viewer element */}
-      {/*  <model-viewer
+      <model-viewer
         src={`${API_URL}${documentAr}`}
         shadow-intensity="1"
         ar
@@ -121,7 +118,7 @@ function App() {
         </button>
 
         <button id="ar-failure">AR is not tracking!</button>
-      </model-viewer> */}
+      </model-viewer>
     </>
   );
 }
