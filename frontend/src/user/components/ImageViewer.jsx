@@ -20,7 +20,7 @@ const ImageViewer = ({ document, reviewDate, phase }) => {
     // Add images to the ZIP archive
     for (const image of images) {
       const imageUrl = `${API_URL}${image.MediaFile.formats.large.url}`;
-      const imageName = `${image.Title}`;
+      const imageName = `${image.Title}.jpeg`;
 
       try {
         // Fetch the image data as a Blob
