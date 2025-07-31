@@ -15,7 +15,7 @@ services:
       - ./backend/.env
     environment:
       DATABASE_HOST: zorzon_db_test
-      NODE_ENV: development
+      NODE_ENV: production
       URL: https://test-admin.zorzon.com.ro
       TRUST_PROXY: true
     depends_on:
@@ -36,7 +36,7 @@ services:
     ports:
       - "5173:5173"
     environment:
-      NODE_ENV: development
+      NODE_ENV: production
     restart: unless-stopped
     depends_on:
       - backend-test
