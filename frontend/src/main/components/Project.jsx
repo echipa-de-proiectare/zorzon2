@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useFetchProjectById } from "../hooks/useFetchProjects";
 import LoadingIcon from "../../elements/loadingIcon";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -48,22 +48,22 @@ function Project() {
             <figure className="image" onClick={() => openModal(image)}>
               <img
                 loading="lazy"
-                src={`${API_URL}${image.formats.thumbnail.url}`} // Fallback image for older browsers
+                src={`${API_URL}${image.formats?.thumbnail?.url || image.url}`}
                 srcSet={`
-            ${API_URL}${image.formats.thumbnail.url} 117w,
-            ${API_URL}${image.formats.small.url} 375w,
-            ${API_URL}${image.formats.medium.url} 563w,
-            ${API_URL}${image.formats.large.url} 750w,
-            ${API_URL}${image.url} 3000w
-          `}
+                  ${API_URL}${image.formats?.thumbnail?.url || image.url} 150w,
+                  ${API_URL}${image.formats?.small?.url || image.url} 300w,
+                  ${API_URL}${image.formats?.medium?.url || image.url} 600w,
+                  ${API_URL}${image.formats?.large?.url || image.url} 900w,
+                  ${API_URL}${image.url} 1200w
+                `}
                 sizes="
-            (max-width: 768px) 375px,
-            (min-width: 769px) and (max-width: 1023px) 563px,
-            (min-width: 1024px) and (max-width: 1215px) 750px,
-            (min-width: 1216px) and (max-width: 1407px) 1000px,
-            3000px
-          "
-                alt={image.name || "Image"}
+                  (max-width: 480px) 150px,
+                  (max-width: 768px) 300px,
+                  (max-width: 1024px) 450px,
+                  (max-width: 1407px) 600px,
+                  800px
+                "
+                alt={image.alternativeText || image.name || "Project image"}
               />
             </figure>
           </div>
