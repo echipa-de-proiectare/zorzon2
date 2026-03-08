@@ -143,14 +143,10 @@ const Services: React.FC = () => {
                         </footer>
                       </div>
                     );
-                  }
+                  },
                 )}
             </div>
           </div>
-          <span>
-            *Preturile sunt indicative si pot varia in functie de complexitatea
-            proiectului
-          </span>
         </div>
 
         {/* Modals for each service */}
@@ -183,21 +179,21 @@ const Services: React.FC = () => {
                               src={`${API_URL}${currentExample.imageItem.url}`}
                               srcSet={`
                                 ${API_URL}${
-                                currentExample.imageItem.formats?.thumbnail
-                                  ?.url || currentExample.imageItem.url
-                              } 150w,
+                                  currentExample.imageItem.formats?.thumbnail
+                                    ?.url || currentExample.imageItem.url
+                                } 150w,
                                 ${API_URL}${
-                                currentExample.imageItem.formats?.small?.url ||
-                                currentExample.imageItem.url
-                              } 300w,
+                                  currentExample.imageItem.formats?.small
+                                    ?.url || currentExample.imageItem.url
+                                } 300w,
                                 ${API_URL}${
-                                currentExample.imageItem.formats?.medium?.url ||
-                                currentExample.imageItem.url
-                              } 600w,
+                                  currentExample.imageItem.formats?.medium
+                                    ?.url || currentExample.imageItem.url
+                                } 600w,
                                 ${API_URL}${
-                                currentExample.imageItem.formats?.large?.url ||
-                                currentExample.imageItem.url
-                              } 900w,
+                                  currentExample.imageItem.formats?.large
+                                    ?.url || currentExample.imageItem.url
+                                } 900w,
                                 ${API_URL}${currentExample.imageItem.url} 1200w
                               `}
                               sizes="
@@ -268,7 +264,7 @@ const Services: React.FC = () => {
                   ></button>
                 </div>
               );
-            }
+            },
           )}
       </div>
     )
