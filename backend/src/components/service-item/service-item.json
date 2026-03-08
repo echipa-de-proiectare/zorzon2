@@ -12,9 +12,6 @@
     "Description": {
       "type": "text"
     },
-    "Price": {
-      "type": "string"
-    },
     "Time": {
       "type": "string"
     },

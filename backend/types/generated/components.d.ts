@@ -33,7 +33,6 @@ export interface ServiceItemServiceItem extends Struct.ComponentSchema {
     Content: Schema.Attribute.Blocks;
     Description: Schema.Attribute.Text;
     examples: Schema.Attribute.Component<'basic.image', true>;
-    Price: Schema.Attribute.String;
     Time: Schema.Attribute.String;
     Title: Schema.Attribute.String;
   };

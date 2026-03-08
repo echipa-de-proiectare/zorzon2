@@ -472,6 +472,7 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
 export interface ApiServiceService extends Struct.SingleTypeSchema {
   collectionName: 'services';
   info: {
+    description: '';
     displayName: 'Service';
     pluralName: 'services';
     singularName: 'service';
