@@ -42,7 +42,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainAppLayout about={about} />}>
           <Route index element={<Homepage about={about} />} />
-          <Route path="contact" element={<Contact />} />
+          {/* <Route path="contact" element={<Contact />} /> */}
           <Route path="portofoliu" element={<Portfolio />} />
           <Route path="services-and-rates" element={<Services />} />
           <Route path="portofoliu/:id" element={<Project />} />

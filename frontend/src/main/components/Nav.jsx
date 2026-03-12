@@ -61,9 +61,9 @@ const Nav = ({ about }) => {
           <Link className="navbar-item" to="/portofoliu" onClick={toggleIsOpen}>
             PORTOFOLIU
           </Link>
-          <Link className="navbar-item" to="/contact" onClick={toggleIsOpen}>
+          {/* <Link className="navbar-item" to="/contact" onClick={toggleIsOpen}>
             CONTACT
-          </Link>
+          </Link> */}
           <Link
             className="navbar-item"
             to="/services-and-rates"
