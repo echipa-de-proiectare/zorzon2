@@ -63,15 +63,13 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./backup:/docker-entrypoint-initdb.d # Mount backup directory to init scripts
-      
-  env_file:
-    - ./backend/.env
-
-  environment:
-    POSTGRES_USER: strapi
-    POSTGRES_DB: strapi
-  networks:
-     - zorzon
+    env_file:
+      - ./backend/.env
+    environment:
+      POSTGRES_USER: strapi
+      POSTGRES_DB: strapi
+    networks:
+       - zorzon
 
 volumes:
   postgres_data:
