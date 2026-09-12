@@ -58,6 +58,7 @@ services:
   db:
     container_name: zorzon_db
     image: postgres:15
+    restart: unless-stopped
     platform: linux/arm64 #for platform error on Apple M1 chips
     volumes:
       - postgres_data:/var/lib/postgresql/data
