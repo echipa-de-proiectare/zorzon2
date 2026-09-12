@@ -64,7 +64,6 @@ services:
       - ./backup:/docker-entrypoint-initdb.d # Mount backup directory to init scripts
     environment:
       POSTGRES_USER: strapi
-      POSTGRES_PASSWORD: strapi
       POSTGRES_DB: strapi
 
     networks:
