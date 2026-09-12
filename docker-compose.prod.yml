@@ -66,8 +66,7 @@ services:
       POSTGRES_USER: strapi
       POSTGRES_PASSWORD: strapi
       POSTGRES_DB: strapi
-    ports:
-      - "5433:5432"
+
     networks:
       - zorzon
 
