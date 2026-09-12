@@ -65,7 +65,7 @@ services:
     environment:
       POSTGRES_USER: strapi
       POSTGRES_DB: strapi
-
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
       - zorzon
 
