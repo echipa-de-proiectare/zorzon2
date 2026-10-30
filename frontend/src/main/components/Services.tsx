@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import LoadingIcon from "../../elements/loadingIcon";
 import ErrorMessage from "../../elements/ErrorMessage";
+import usePageMeta from "../hooks/usePageMeta";
 import { imageSrcSet, imageUrl } from "../utils/images";
 import useFetchServices from "../hooks/useFetchServices";
 import {
@@ -40,6 +41,10 @@ interface ServicesData {
 
 const Services: React.FC = () => {
   const { services, loading, error } = useFetchServices();
+  usePageMeta({
+    title: "Servicii",
+    description: (services as ServicesData | null)?.Description,
+  });
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [modalImageIndices, setModalImageIndices] = useState<{
     [key: string]: number;

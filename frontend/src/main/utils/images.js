@@ -1,6 +1,6 @@
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
-const FORMATS = ["thumbnail", "small", "medium", "large"];
+const FORMATS = ["thumbnail", "small", "medium", "large", "xlarge"];
 
 // Absolute URL of a Strapi image
 export const imageUrl = (image) => `${API_URL}${image.url}`;

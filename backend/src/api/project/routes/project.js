@@ -10,6 +10,16 @@ module.exports = {
   routes: [
     {
       method: "GET",
+      path: "/sitemap.xml",
+      handler: "project.sitemap",
+      config: {
+        auth: false,
+        policies: [],
+        middlewares: [],
+      },
+    },
+    {
+      method: "GET",
       path: "/projects/projects-spotlight",
       handler: "project.findProjectsSpotlight",
       config: {

@@ -3,17 +3,25 @@ import ProjectCard from "./ProjectCard";
 import { useFetchProjectsSpotlight } from "../hooks/useFetchProjects";
 import LoadingIcon from "../../elements/loadingIcon";
 import ErrorMessage from "../../elements/ErrorMessage";
+import usePageMeta from "../hooks/usePageMeta";
 
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
 function Homepage({ about }) {
   const { loading, error, projects } = useFetchProjectsSpotlight();
+  usePageMeta({
+    title: "Arhitectură și design de interior în Timișoara",
+    description: about.description,
+  });
 
   if (error) return <ErrorMessage />;
   if (loading) return <LoadingIcon />;
 
   return (
     <div className="homepage">
+      <h1 className="is-sr-only">
+        ZORZON Studio – arhitectură și design de interior în Timișoara
+      </h1>
       <section className="hero is-fullheight is-flex is-align-items-center">
         <div className="hero-body">
           {about.logo_primary && (

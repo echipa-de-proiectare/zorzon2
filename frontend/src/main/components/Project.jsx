@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useFetchProjectById } from "../hooks/useFetchProjects";
 import LoadingIcon from "../../elements/loadingIcon";
 import ErrorMessage from "../../elements/ErrorMessage";
+import usePageMeta from "../hooks/usePageMeta";
 import { useEffect, useState } from "react";
 import { imageFallbackUrl, imageSrcSet, imageUrl } from "../utils/images";
 
@@ -18,6 +19,18 @@ import "../styles/Project.css";
 function Project() {
   let { id } = useParams();
   const { loading, error, notFound, project } = useFetchProjectById(id);
+  const shareImage = project?.images?.[0];
+  usePageMeta(
+    notFound
+      ? { title: "Proiect negăsit", noindex: true }
+      : {
+          title: project && [project.name, project.location].join(", "),
+          description:
+            project &&
+            `${project.name}, ${project.location} – proiect de design interior realizat de ZORZON.`,
+          image: shareImage && imageFallbackUrl(shareImage, 1000),
+        }
+  );
 
   const [activeIndex, setActiveIndex] = useState(null);
   const isModalActive = activeIndex !== null;

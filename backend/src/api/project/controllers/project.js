@@ -93,4 +93,42 @@ module.exports = createCoreController("api::project.project", ({ strapi }) => ({
 
     return this.transformResponse(transformedProject);
   },
+
+  async sitemap(ctx) {
+    const siteUrl = "https://zorzon.com.ro";
+
+    const Projects = await strapi.entityService.findMany(
+      "api::project.project",
+      {
+        fields: ["updatedAt"],
+        sort: { createdAt: "desc" },
+      }
+    );
+
+    const pages = [
+      { path: "/" },
+      { path: "/portofoliu" },
+      { path: "/services-and-rates" },
+      ...Projects.map((project) => ({
+        path: `/portofoliu/${project.id}`,
+        lastmod: new Date(project.updatedAt).toISOString().slice(0, 10),
+      })),
+    ];
+
+    const urls = pages
+      .map(
+        (page) =>
+          `  <url><loc>${siteUrl}${page.path}</loc>${
+            page.lastmod ? `<lastmod>${page.lastmod}</lastmod>` : ""
+          }</url>`
+      )
+      .join("\n");
+
+    ctx.type = "application/xml";
+    ctx.body = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>
+`;
+  },
 }));
