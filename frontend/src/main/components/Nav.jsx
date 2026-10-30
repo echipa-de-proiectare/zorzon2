@@ -2,9 +2,10 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
+import { DESIGN_URL, isJewellerySite, JEWELLERY_URL } from "../../site";
 import "../styles/Nav.css";
 
-const Nav = ({ about, homePath, links }) => {
+const Nav = ({ about, links }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const isMobile = () => window.innerWidth < 992; // Check if the current screen width is for mobile
@@ -33,25 +34,44 @@ const Nav = ({ about, homePath, links }) => {
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <Link className="navbar-item" to={homePath} onClick={onLogoClick}>
+        <Link className="navbar-item" to="/" onClick={onLogoClick}>
           <img src={`${API_URL}${logo}`} alt="ZorZon Logo" />
         </Link>
 
-        <a
-          role="button"
-          className={`navbar-burger ${
-            isOpen ? "is-active" : ""
-          } has-text-black`}
-          aria-label="menu"
-          aria-expanded={isOpen ? "true" : "false"}
-          data-target="navbar"
-          onClick={toggleIsOpen}
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
+        {/* Switch between the two ZORZON sites; the current one is plain text */}
+        <div className="navbar-item site-switch">
+          {isJewellerySite ? (
+            <a href={DESIGN_URL}>Design</a>
+          ) : (
+            <span aria-current="page">Design</span>
+          )}
+          <span className="site-switch-separator" aria-hidden="true">
+            /
+          </span>
+          {isJewellerySite ? (
+            <span aria-current="page">Jewellery</span>
+          ) : (
+            <a href={JEWELLERY_URL}>Jewellery</a>
+          )}
+        </div>
+
+        {links.length > 0 && (
+          <a
+            role="button"
+            className={`navbar-burger ${
+              isOpen ? "is-active" : ""
+            } has-text-black`}
+            aria-label="menu"
+            aria-expanded={isOpen ? "true" : "false"}
+            data-target="navbar"
+            onClick={toggleIsOpen}
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        )}
       </div>
 
       <div
@@ -59,22 +79,16 @@ const Nav = ({ about, homePath, links }) => {
         className={`navbar-end navbar-menu ${isOpen ? "is-active" : ""}`}
       >
         <div className="navbar-end">
-          {links.map((link) =>
-            link.href ? (
-              <a key={link.label} className="navbar-item" href={link.href}>
-                {link.label}
-              </a>
-            ) : (
-              <Link
-                key={link.label}
-                className="navbar-item"
-                to={link.to}
-                onClick={toggleIsOpen}
-              >
-                {link.label}
-              </Link>
-            )
-          )}
+          {links.map((link) => (
+            <Link
+              key={link.label}
+              className="navbar-item"
+              to={link.to}
+              onClick={toggleIsOpen}
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
       </div>
     </nav>
@@ -83,16 +97,14 @@ const Nav = ({ about, homePath, links }) => {
 
 Nav.propTypes = {
   about: PropTypes.shape({
-    logo_secondary: PropTypes.shape({ url: PropTypes.string.isRequired }).isRequired,
+    logo_secondary: PropTypes.shape({ url: PropTypes.string.isRequired })
+      .isRequired,
   }).isRequired,
-  homePath: PropTypes.string.isRequired,
-  // Internal links use `to`, links to the other ZORZON site use `href`
   links: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      to: PropTypes.string,
-      href: PropTypes.string,
-    })
+      to: PropTypes.string.isRequired,
+    }),
   ).isRequired,
 };
 

@@ -14,3 +14,26 @@
 html:has(.navbar-end.navbar-menu.is-active) {
   overflow: hidden;
 }
+
+.site-switch {
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #b5b5b5;
+}
+
+/* index.css resets text-transform on links */
+.site-switch a {
+  color: #9a9a9a;
+  text-transform: uppercase;
+}
+
+.site-switch a:hover {
+  color: #363636;
+}
+
+.site-switch [aria-current="page"] {
+  color: #363636;
+  font-weight: 500;
+}

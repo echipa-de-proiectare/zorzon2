@@ -95,7 +95,7 @@ module.exports = createCoreController("api::project.project", ({ strapi }) => ({
   },
 
   async sitemap(ctx) {
-    const siteUrl = "https://zorzon.com.ro";
+    const siteUrl = "https://design.zorzon.com.ro";
 
     const Projects = await strapi.entityService.findMany(
       "api::project.project",
@@ -107,7 +107,6 @@ module.exports = createCoreController("api::project.project", ({ strapi }) => ({
 
     const pages = [
       { path: "/" },
-      { path: "/design" },
       { path: "/portofoliu" },
       { path: "/services-and-rates" },
       ...Projects.map((project) => ({

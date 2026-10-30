@@ -1,0 +1,19 @@
+.site-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 2.5rem 1.5rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: #b5b5b5;
+}
+
+.site-footer a {
+  color: #7a7a7a;
+}
+
+.site-footer a:hover {
+  color: #363636;
+}
