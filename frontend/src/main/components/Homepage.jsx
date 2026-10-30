@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import ProjectCard from "./ProjectCard";
 import { useFetchProjectsSpotlight } from "../hooks/useFetchProjects";
@@ -57,5 +58,12 @@ function Homepage({ about }) {
     </div>
   );
 }
+
+Homepage.propTypes = {
+  about: PropTypes.shape({
+    description: PropTypes.string,
+    logo_primary: PropTypes.shape({ url: PropTypes.string.isRequired }),
+  }).isRequired,
+};
 
 export default Homepage;

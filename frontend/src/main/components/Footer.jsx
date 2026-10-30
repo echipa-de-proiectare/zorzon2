@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
 const Footer = ({ about }) => {
@@ -42,6 +43,20 @@ const Footer = ({ about }) => {
       </div>
     </footer>
   );
+};
+
+Footer.propTypes = {
+  about: PropTypes.shape({
+    description: PropTypes.string,
+    contact: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        link: PropTypes.string,
+      })
+    ).isRequired,
+    logo_secondary: PropTypes.shape({ url: PropTypes.string.isRequired }).isRequired,
+  }).isRequired,
 };
 
 export default Footer;

@@ -1,0 +1,20 @@
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+.carousel-indicator {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #dbdbdb;
+  cursor: pointer;
+}
+
+.carousel-indicator.is-active {
+  background: #4a4a4a;
+}

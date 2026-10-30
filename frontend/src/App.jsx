@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import useFetchAbout from "./main/hooks/useFetchAbout";
 import MainAppLayout from "./layouts/MainAppLayout";
 import Homepage from "./main/components/Homepage";
-import Contact from "./main/components/Contact";
 import Portfolio from "./main/components/Portfolio";
 import Project from "./main/components/Project";
 import LoadingIcon from "./elements/loadingIcon";

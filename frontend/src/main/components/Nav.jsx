@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
@@ -75,6 +76,12 @@ const Nav = ({ about }) => {
       </div>
     </nav>
   );
+};
+
+Nav.propTypes = {
+  about: PropTypes.shape({
+    logo_secondary: PropTypes.shape({ url: PropTypes.string.isRequired }).isRequired,
+  }).isRequired,
 };
 
 export default Nav;

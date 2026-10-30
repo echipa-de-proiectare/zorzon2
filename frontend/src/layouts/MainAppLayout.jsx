@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Outlet } from "react-router-dom";
 import Footer from "../main/components/Footer";
 import Nav from "../main/components/Nav";
@@ -26,6 +27,10 @@ const MainAppLayout = ({ about }) => {
       <Footer about={about} />
     </div>
   );
+};
+
+MainAppLayout.propTypes = {
+  about: PropTypes.object.isRequired,
 };
 
 export default MainAppLayout;

@@ -4,6 +4,7 @@ import ErrorMessage from "../../elements/ErrorMessage";
 import usePageMeta from "../hooks/usePageMeta";
 import { imageSrcSet, imageUrl } from "../utils/images";
 import useFetchServices from "../hooks/useFetchServices";
+import "../styles/Services.css";
 import {
   BlocksRenderer,
   type BlocksContent,
@@ -196,6 +197,7 @@ const Services: React.FC = () => {
                             <>
                               <button
                                 className="button is-small carousel-nav prev"
+                                aria-label="Imaginea anterioară"
                                 onClick={() =>
                                   prevImage(modalId, examples.length)
                                 }
@@ -204,6 +206,7 @@ const Services: React.FC = () => {
                               </button>
                               <button
                                 className="button is-small carousel-nav next"
+                                aria-label="Imaginea următoare"
                                 onClick={() =>
                                   nextImage(modalId, examples.length)
                                 }
@@ -214,13 +217,15 @@ const Services: React.FC = () => {
                           )}
                           <div className="carousel-indicators">
                             {examples.map((_, imgIndex) => (
-                              <span
+                              <button
                                 key={imgIndex}
                                 className={`carousel-indicator ${
                                   imgIndex === currentImageIndex
                                     ? "is-active"
                                     : ""
                                 }`}
+                                aria-label={`Imaginea ${imgIndex + 1}`}
+                                aria-current={imgIndex === currentImageIndex}
                                 onClick={() =>
                                   setCurrentImageIndex(modalId, imgIndex)
                                 }
@@ -242,7 +247,7 @@ const Services: React.FC = () => {
                   </div>
                   <button
                     className="modal-close is-large"
-                    aria-label="close"
+                    aria-label="Închide exemplele"
                     onClick={closeModal}
                   ></button>
                 </div>
