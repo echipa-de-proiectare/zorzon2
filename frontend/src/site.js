@@ -29,5 +29,5 @@ export const SITE_NAME = {
   jewelry: "ZORZON Jewelry",
 }[subdomain] || "ZORZON";
 
-// Each site has its own Instagram; the design one comes from Strapi (about)
+export const DESIGN_INSTAGRAM = "https://www.instagram.com/zorzon.design/";
 export const JEWELRY_INSTAGRAM = "https://www.instagram.com/zorzon.jewelry/";

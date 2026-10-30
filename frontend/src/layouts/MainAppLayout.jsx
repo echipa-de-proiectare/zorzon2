@@ -24,7 +24,7 @@ const MainAppLayout = ({ about, links }) => {
       <div className="container is-max-desktop">
         <Outlet />
       </div>
-      <Footer about={about} />
+      <Footer />
     </div>
   );
 };
