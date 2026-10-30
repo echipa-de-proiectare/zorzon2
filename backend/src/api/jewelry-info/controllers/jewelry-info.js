@@ -1,17 +1,17 @@
 "use strict";
 
 /**
- * jewellery-info controller
+ * jewelry-info controller
  */
 
 const { createCoreController } = require("@strapi/strapi").factories;
 
 module.exports = createCoreController(
-  "api::jewellery-info.jewellery-info",
+  "api::jewelry-info.jewelry-info",
   ({ strapi }) => ({
-    async findJewelleryInfo(ctx) {
+    async findJewelryInfo(ctx) {
       const info = await strapi
-        .documents("api::jewellery-info.jewellery-info")
+        .documents("api::jewelry-info.jewelry-info")
         .findFirst({ fields: ["description", "whatsapp"] });
 
       // wa.me links expect digits only, in international format,

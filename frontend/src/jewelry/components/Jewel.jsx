@@ -8,8 +8,8 @@ import ErrorMessage from "../../elements/ErrorMessage";
 import usePageMeta from "../../main/hooks/usePageMeta";
 import { imageFallbackUrl, imageSrcSet } from "../../main/utils/images";
 import { SITE_URL } from "../../site";
-import { useFetchJewelById, useFetchJewelleryInfo } from "../hooks/useFetchJewels";
-import "../styles/Jewellery.css";
+import { useFetchJewelById, useFetchJewelryInfo } from "../hooks/useFetchJewels";
+import "../styles/Jewelry.css";
 
 // wa.me opens WhatsApp (app or web) with the message already written
 const whatsappLink = (number, jewel) => {
@@ -22,7 +22,7 @@ const whatsappLink = (number, jewel) => {
 function Jewel() {
   const { id } = useParams();
   const { loading, error, notFound, jewel } = useFetchJewelById(id);
-  const { info } = useFetchJewelleryInfo();
+  const { info } = useFetchJewelryInfo();
   usePageMeta(
     notFound
       ? { title: "Piesă negăsită", noindex: true }

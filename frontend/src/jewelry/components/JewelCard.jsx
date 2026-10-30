@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { imageFallbackUrl, imageSrcSet } from "../../main/utils/images";
-import "../styles/Jewellery.css";
+import "../styles/Jewelry.css";
 
 function JewelCard({ jewel }) {
   return (

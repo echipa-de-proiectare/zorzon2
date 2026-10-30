@@ -56,7 +56,7 @@ module.exports = createCoreController("api::jewel.jewel", ({ strapi }) => ({
   },
 
   async sitemap(ctx) {
-    const siteUrl = "https://jewellery.zorzon.com.ro";
+    const siteUrl = "https://jewelry.zorzon.com.ro";
 
     const jewels = await strapi.documents("api::jewel.jewel").findMany({
       status: "published",

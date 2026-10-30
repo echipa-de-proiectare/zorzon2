@@ -1,23 +1,23 @@
 // The same build serves three hosts; the hostname decides what is shown:
 //   zorzon.com.ro            page to choose between the two sites
 //   design.zorzon.com.ro     interior design
-//   jewellery.zorzon.com.ro  jewellery
-// Locally these are localhost, design.localhost and jewellery.localhost,
+//   jewelry.zorzon.com.ro    jewelry
+// Locally these are localhost, design.localhost and jewelry.localhost,
 // which browsers resolve to this machine without any setup.
 const { protocol, hostname, port } = window.location;
-const SUBDOMAINS = ["design", "jewellery"];
+const SUBDOMAINS = ["design", "jewelry"];
 
 const subdomain = SUBDOMAINS.find((name) => hostname.startsWith(`${name}.`));
 const rootHost = subdomain ? hostname.slice(subdomain.length + 1) : hostname;
 const portSuffix = port ? `:${port}` : "";
 
 export const isDesignSite = subdomain === "design";
-export const isJewellerySite = subdomain === "jewellery";
+export const isJewelrySite = subdomain === "jewelry";
 export const isChoiceSite = !subdomain;
 
 export const ROOT_URL = `${protocol}//${rootHost}${portSuffix}`;
 export const DESIGN_URL = `${protocol}//design.${rootHost}${portSuffix}`;
-export const JEWELLERY_URL = `${protocol}//jewellery.${rootHost}${portSuffix}`;
+export const JEWELRY_URL = `${protocol}//jewelry.${rootHost}${portSuffix}`;
 
 // Canonical addresses for SEO, always the production ones
 export const SITE_URL = subdomain
@@ -26,5 +26,8 @@ export const SITE_URL = subdomain
 
 export const SITE_NAME = {
   design: "ZORZON Design",
-  jewellery: "ZORZON Jewellery",
+  jewelry: "ZORZON Jewelry",
 }[subdomain] || "ZORZON";
+
+// Each site has its own Instagram; the design one comes from Strapi (about)
+export const JEWELRY_INSTAGRAM = "https://www.instagram.com/zorzon.jewelry/";

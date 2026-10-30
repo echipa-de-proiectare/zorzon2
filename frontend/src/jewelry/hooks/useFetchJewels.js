@@ -12,9 +12,9 @@ const useFetchJewelById = (id) => {
   return { loading, error, notFound, jewel: data };
 };
 
-const useFetchJewelleryInfo = () => {
-  const { loading, error, data } = useFetchApi("/api/jewellery-info");
+const useFetchJewelryInfo = () => {
+  const { loading, error, data } = useFetchApi("/api/jewelry-info");
   return { loading, error, info: data };
 };
 
-export { useFetchJewels, useFetchJewelById, useFetchJewelleryInfo };
+export { useFetchJewels, useFetchJewelById, useFetchJewelryInfo };

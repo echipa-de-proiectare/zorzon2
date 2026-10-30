@@ -1,13 +1,19 @@
 .site-footer {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 1rem;
   padding: 2.5rem 1.5rem;
   font-size: 0.85rem;
   letter-spacing: 0.05em;
   color: #b5b5b5;
+}
+
+.site-footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .site-footer a {
@@ -16,4 +22,8 @@
 
 .site-footer a:hover {
   color: #363636;
+}
+
+.site-footer-instagram {
+  font-size: 0.8rem;
 }

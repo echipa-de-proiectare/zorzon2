@@ -1,4 +1,4 @@
-.jewellery-title {
+.jewelry-title {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   font-weight: 400;
@@ -6,14 +6,14 @@
 }
 
 /* Bulma pulls a subtitle up under a title; give the intro room instead */
-.jewellery-intro {
+.jewelry-intro {
   max-width: 32rem;
   margin: 0.75rem auto 2.5rem !important;
   color: #6b6b6b;
   line-height: 1.6;
 }
 
-.jewellery-empty {
+.jewelry-empty {
   color: #6b6b6b;
   padding: 3rem 0;
 }

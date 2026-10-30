@@ -1,15 +1,15 @@
 "use strict";
 
 /**
- * jewellery-info router
+ * jewelry-info router
  */
 
 module.exports = {
   routes: [
     {
       method: "GET",
-      path: "/jewellery-info",
-      handler: "jewellery-info.findJewelleryInfo",
+      path: "/jewelry-info",
+      handler: "jewelry-info.findJewelryInfo",
       config: {
         auth: false,
         policies: [],

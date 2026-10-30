@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { isJewellerySite, SITE_NAME, SITE_URL } from "../../site";
+import { isJewelrySite, SITE_NAME, SITE_URL } from "../../site";
 
-const DEFAULT_DESCRIPTION = isJewellerySite
+const DEFAULT_DESCRIPTION = isJewelrySite
   ? "Bijuterii artizanale lucrate manual de ZORZON, în Timișoara."
   : "Birou de arhitectura si design de interior din Timisoara, Romania.";
 const DEFAULT_IMAGE = "https://zorzon.com.ro/logo1.jpg";

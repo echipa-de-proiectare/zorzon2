@@ -10,10 +10,10 @@ import ScrollToTop from "./main/components/utility/ScrollToTop";
 import { useEffect } from "react";
 import Services from "./main/components/Services";
 import Choice from "./main/components/Choice";
-import JewelleryHome from "./jewellery/components/JewelleryHome";
-import Jewel from "./jewellery/components/Jewel";
+import JewelryHome from "./jewelry/components/JewelryHome";
+import Jewel from "./jewelry/components/Jewel";
 import MovedToDesign from "./main/components/utility/MovedToDesign";
-import { isChoiceSite, isDesignSite, isJewellerySite } from "./site";
+import { isChoiceSite, isDesignSite, isJewelrySite } from "./site";
 
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
@@ -44,12 +44,12 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      {isJewellerySite && (
+      {isJewelrySite && (
         <Routes>
           <Route element={<MainAppLayout about={about} links={[]} />}>
-            <Route index element={<JewelleryHome />} />
+            <Route index element={<JewelryHome />} />
             <Route path="piesa/:id" element={<Jewel />} />
-            <Route path="*" element={<JewelleryHome />} />
+            <Route path="*" element={<JewelryHome />} />
           </Route>
         </Routes>
       )}

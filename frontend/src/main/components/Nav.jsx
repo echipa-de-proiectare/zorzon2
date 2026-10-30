@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
-import { DESIGN_URL, isJewellerySite, JEWELLERY_URL } from "../../site";
+import { DESIGN_URL, isJewelrySite, JEWELRY_URL } from "../../site";
 import "../styles/Nav.css";
 
 const Nav = ({ about, links }) => {
@@ -40,7 +40,7 @@ const Nav = ({ about, links }) => {
 
         {/* Switch between the two ZORZON sites; the current one is plain text */}
         <div className="navbar-item site-switch">
-          {isJewellerySite ? (
+          {isJewelrySite ? (
             <a href={DESIGN_URL}>Design</a>
           ) : (
             <span aria-current="page">Design</span>
@@ -48,10 +48,10 @@ const Nav = ({ about, links }) => {
           <span className="site-switch-separator" aria-hidden="true">
             /
           </span>
-          {isJewellerySite ? (
-            <span aria-current="page">Jewellery</span>
+          {isJewelrySite ? (
+            <span aria-current="page">Jewelry</span>
           ) : (
-            <a href={JEWELLERY_URL}>Jewellery</a>
+            <a href={JEWELRY_URL}>Jewelry</a>
           )}
         </div>
 

@@ -437,7 +437,7 @@ export interface ApiContactMessageContactMessage
 export interface ApiJewelJewel extends Struct.CollectionTypeSchema {
   collectionName: 'jewels';
   info: {
-    description: 'Pieces shown on jewellery.zorzon.com.ro';
+    description: 'Pieces shown on jewelry.zorzon.com.ro';
     displayName: 'jewel';
     pluralName: 'jewels';
     singularName: 'jewel';
@@ -466,13 +466,13 @@ export interface ApiJewelJewel extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiJewelleryInfoJewelleryInfo extends Struct.SingleTypeSchema {
-  collectionName: 'jewellery_infos';
+export interface ApiJewelryInfoJewelryInfo extends Struct.SingleTypeSchema {
+  collectionName: 'jewelry_infos';
   info: {
-    description: 'Texts and WhatsApp number for jewellery.zorzon.com.ro';
-    displayName: 'jewellery info';
-    pluralName: 'jewellery-infos';
-    singularName: 'jewellery-info';
+    description: 'Texts and WhatsApp number for jewelry.zorzon.com.ro';
+    displayName: 'jewelry info';
+    pluralName: 'jewelry-infos';
+    singularName: 'jewelry-info';
   };
   options: {
     draftAndPublish: false;
@@ -485,7 +485,7 @@ export interface ApiJewelleryInfoJewelleryInfo extends Struct.SingleTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::jewellery-info.jewellery-info'
+      'api::jewelry-info.jewelry-info'
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
@@ -1074,7 +1074,7 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::contact-message.contact-message': ApiContactMessageContactMessage;
       'api::jewel.jewel': ApiJewelJewel;
-      'api::jewellery-info.jewellery-info': ApiJewelleryInfoJewelleryInfo;
+      'api::jewelry-info.jewelry-info': ApiJewelryInfoJewelryInfo;
       'api::project.project': ApiProjectProject;
       'api::service.service': ApiServiceService;
       'plugin::content-releases.release': PluginContentReleasesRelease;

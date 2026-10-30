@@ -1,11 +1,11 @@
 {
   "kind": "singleType",
-  "collectionName": "jewellery_infos",
+  "collectionName": "jewelry_infos",
   "info": {
-    "singularName": "jewellery-info",
-    "pluralName": "jewellery-infos",
-    "displayName": "jewellery info",
-    "description": "Texts and WhatsApp number for jewellery.zorzon.com.ro"
+    "singularName": "jewelry-info",
+    "pluralName": "jewelry-infos",
+    "displayName": "jewelry info",
+    "description": "Texts and WhatsApp number for jewelry.zorzon.com.ro"
   },
   "options": {
     "draftAndPublish": false
