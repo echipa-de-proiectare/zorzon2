@@ -1,7 +1,9 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useFetchProjectById } from "../hooks/useFetchProjects";
 import LoadingIcon from "../../elements/loadingIcon";
-import { useState } from "react";
+import ErrorMessage from "../../elements/ErrorMessage";
+import { useEffect, useState } from "react";
+import { imageFallbackUrl, imageSrcSet, imageUrl } from "../utils/images";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -13,57 +15,61 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "../styles/Project.css";
 
-const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
-
 function Project() {
   let { id } = useParams();
-  const { loading, error, project } = useFetchProjectById(id);
+  const { loading, error, notFound, project } = useFetchProjectById(id);
 
-  const [isModalActive, setIsModalActive] = useState(false);
-  const [activeImage, setActiveImage] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(null);
+  const isModalActive = activeIndex !== null;
 
-  const openModal = (image) => {
-    setActiveImage(image);
-    setIsModalActive(true);
-  };
+  const openModal = (index) => setActiveIndex(index);
+  const closeModal = () => setActiveIndex(null);
 
-  const closeModal = () => {
-    setIsModalActive(false);
-    setActiveImage(0);
-  };
+  // Lock page scroll and close on Escape while the gallery is open
+  useEffect(() => {
+    if (!isModalActive) return;
 
-  if (error) return <p>A network error was encountered</p>;
+    const handleEscape = (event) => {
+      if (event.key === "Escape") closeModal();
+    };
+
+    document.documentElement.classList.add("is-clipped");
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.documentElement.classList.remove("is-clipped");
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isModalActive]);
+
   if (loading) return <LoadingIcon />;
+  if (notFound)
+    return (
+      <div className="section has-text-centered">
+        <h1 className="title is-4">Proiectul nu a fost găsit</h1>
+        <Link to="/portofoliu" className="button is-gray">
+          Vezi toate proiectele
+        </Link>
+      </div>
+    );
+  if (error) return <ErrorMessage />;
 
   return (
     <div className="section has-text-centered">
       <h1 className="title is-4">{project.name}</h1>
       <h2 className="subtitle is-6">{project.location}</h2>
       <div className="columns is-multiline">
-        {project.images.map((image) => (
+        {project.images.map((image, index) => (
           <div
             key={image.id}
             className="column is-full-mobile is-full-tablet is-half-desktop"
           >
-            <figure className="image" onClick={() => openModal(image)}>
+            <figure className="image" onClick={() => openModal(index)}>
               <img
                 loading="lazy"
-                src={`${API_URL}${image.formats?.thumbnail?.url || image.url}`}
-                srcSet={`
-                  ${API_URL}${image.formats?.thumbnail?.url || image.url} 150w,
-                  ${API_URL}${image.formats?.small?.url || image.url} 300w,
-                  ${API_URL}${image.formats?.medium?.url || image.url} 600w,
-                  ${API_URL}${image.formats?.large?.url || image.url} 900w,
-                  ${API_URL}${image.url} 1200w
-                `}
-                sizes="
-                  (max-width: 480px) 150px,
-                  (max-width: 768px) 300px,
-                  (max-width: 1024px) 450px,
-                  (max-width: 1407px) 600px,
-                  800px
-                "
-                alt={image.alternativeText || image.name || "Project image"}
+                src={imageFallbackUrl(image)}
+                srcSet={imageSrcSet(image)}
+                sizes="(max-width: 1023px) calc(100vw - 3rem), 450px"
+                alt={image.alternativeText || project.name}
               />
             </figure>
           </div>
@@ -71,11 +77,11 @@ function Project() {
       </div>
       {/* Full-Screen Modal */}
       {isModalActive && (
-        <div className={`modal ${isModalActive ? "is-active" : ""}`}>
+        <div className="modal is-active">
           <div className="modal-background" onClick={closeModal}></div>
           <div className="modal-content">
             <Swiper
-              initialSlide={activeImage} // Start from the clicked image
+              initialSlide={activeIndex} // Start from the clicked image
               spaceBetween={30}
               pagination={{
                 clickable: true,
@@ -87,8 +93,11 @@ function Project() {
                 <SwiperSlide key={image.id}>
                   <figure className="image">
                     <img
-                      src={`${API_URL}${image.url}`}
-                      alt={image.name || "Full screen image"}
+                      loading="lazy"
+                      src={imageUrl(image)}
+                      srcSet={imageSrcSet(image)}
+                      sizes="(max-width: 768px) 100vw, 640px"
+                      alt={image.alternativeText || project.name}
                     />
                   </figure>
                 </SwiperSlide>
@@ -97,7 +106,7 @@ function Project() {
           </div>
           <button
             className="modal-close is-large"
-            aria-label="close"
+            aria-label="Închide galeria"
             onClick={closeModal}
           ></button>
         </div>

@@ -6,6 +6,7 @@ import Contact from "./main/components/Contact";
 import Portfolio from "./main/components/Portfolio";
 import Project from "./main/components/Project";
 import LoadingIcon from "./elements/loadingIcon";
+import ErrorMessage from "./elements/ErrorMessage";
 import ScrollToTop from "./main/components/utility/ScrollToTop";
 import { useEffect } from "react";
 import Services from "./main/components/Services";
@@ -21,7 +22,7 @@ function App() {
 
   const { about, loading, error } = useFetchAbout();
   if (loading) return <LoadingIcon />;
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <ErrorMessage />;
 
   // Extract the logo_secondary URL
   const logoSecondaryUrl = about.logo_secondary.url;

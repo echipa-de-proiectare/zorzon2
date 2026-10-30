@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import LoadingIcon from "../../elements/loadingIcon";
+import ErrorMessage from "../../elements/ErrorMessage";
+import { imageSrcSet, imageUrl } from "../utils/images";
 import useFetchServices from "../hooks/useFetchServices";
 import {
   BlocksRenderer,
@@ -10,11 +12,12 @@ interface ExampleImage {
   title: string;
   imageItem: {
     url: string;
+    width?: number;
     formats?: {
-      thumbnail?: { url: string };
-      small?: { url: string };
-      medium?: { url: string };
-      large?: { url: string };
+      thumbnail?: { url: string; width: number };
+      small?: { url: string; width: number };
+      medium?: { url: string; width: number };
+      large?: { url: string; width: number };
     };
     alternativeText?: string;
   };
@@ -34,8 +37,6 @@ interface ServicesData {
   Description: string;
   ServiceItem: ServiceItem[];
 }
-
-const API_URL = import.meta.env.VITE_API_URL;
 
 const Services: React.FC = () => {
   const { services, loading, error } = useFetchServices();
@@ -89,7 +90,7 @@ const Services: React.FC = () => {
     }));
   };
 
-  if (error) return <p>A network error was encountered</p>;
+  if (error) return <ErrorMessage />;
   if (loading) return <LoadingIcon />;
 
   // Type assertion for services
@@ -176,32 +177,9 @@ const Services: React.FC = () => {
                         <div className="carousel-container">
                           <div className="carousel-image-container">
                             <img
-                              src={`${API_URL}${currentExample.imageItem.url}`}
-                              srcSet={`
-                                ${API_URL}${
-                                  currentExample.imageItem.formats?.thumbnail
-                                    ?.url || currentExample.imageItem.url
-                                } 150w,
-                                ${API_URL}${
-                                  currentExample.imageItem.formats?.small
-                                    ?.url || currentExample.imageItem.url
-                                } 300w,
-                                ${API_URL}${
-                                  currentExample.imageItem.formats?.medium
-                                    ?.url || currentExample.imageItem.url
-                                } 600w,
-                                ${API_URL}${
-                                  currentExample.imageItem.formats?.large
-                                    ?.url || currentExample.imageItem.url
-                                } 900w,
-                                ${API_URL}${currentExample.imageItem.url} 1200w
-                              `}
-                              sizes="
-                                (max-width: 480px) 300px,
-                                (max-width: 768px) 600px,
-                                (max-width: 1024px) 900px,
-                                1200px
-                              "
+                              src={imageUrl(currentExample.imageItem)}
+                              srcSet={imageSrcSet(currentExample.imageItem)}
+                              sizes="(max-width: 768px) 100vw, 640px"
                               alt={
                                 currentExample.imageItem.alternativeText ||
                                 currentExample.title ||

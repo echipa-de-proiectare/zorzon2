@@ -2,11 +2,12 @@ import { Link } from "react-router-dom";
 import ProjectCard from "./ProjectCard";
 import { useFetchProjectsPrev } from "../hooks/useFetchProjects";
 import LoadingIcon from "../../elements/loadingIcon";
+import ErrorMessage from "../../elements/ErrorMessage";
 
 function Portfolio() {
   const { loading, error, projects } = useFetchProjectsPrev();
 
-  if (error) return <p>A network error was encountered</p>;
+  if (error) return <ErrorMessage />;
   if (loading) return <LoadingIcon />;
 
   return (

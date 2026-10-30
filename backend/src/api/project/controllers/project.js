@@ -16,7 +16,7 @@ module.exports = createCoreController("api::project.project", ({ strapi }) => ({
         limit: 4, // Limit the results to the first 4
         populate: {
           cover: {
-            fields: ["formats", "url"],
+            fields: ["formats", "url", "width", "alternativeText"],
           },
         },
       }
@@ -41,7 +41,7 @@ module.exports = createCoreController("api::project.project", ({ strapi }) => ({
         sort: { createdAt: "desc" }, // Sort by createdAt in descending order
         populate: {
           cover: {
-            fields: ["formats", "url"],
+            fields: ["formats", "url", "width", "alternativeText"],
           },
         },
       }
@@ -61,6 +61,10 @@ module.exports = createCoreController("api::project.project", ({ strapi }) => ({
   async findProjectById(ctx) {
     const { id } = ctx.params;
 
+    if (!/^\d+$/.test(id)) {
+      return ctx.notFound("Project not found");
+    }
+
     const project = await strapi.entityService.findOne(
       "api::project.project",
       id,
@@ -68,11 +72,15 @@ module.exports = createCoreController("api::project.project", ({ strapi }) => ({
         fields: ["name", "location"], // Include only the necessary fields
         populate: {
           images: {
-            fields: ["formats", "url"], // Include only the URL field in the cover relation
+            fields: ["formats", "url", "width", "alternativeText"],
           },
         },
       }
     );
+
+    if (!project) {
+      return ctx.notFound("Project not found");
+    }
 
     // Transform the response to include only the necessary fields
     const transformedProject = {

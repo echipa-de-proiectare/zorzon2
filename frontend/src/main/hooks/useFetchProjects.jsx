@@ -1,67 +1,58 @@
 import { useEffect, useState } from "react";
 const API_URL = import.meta.env.VITE_API_URL;
 
-const useFetchProjectsSpotlight = () => {
+const useFetchProjects = (path) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [projects, setProjects] = useState();
+  const [notFound, setNotFound] = useState(false);
+  const [data, setData] = useState();
 
   useEffect(() => {
-    fetch(`${API_URL}/api/projects/projects-spotlight`, {
+    setLoading(true);
+    setError(null);
+    setNotFound(false);
+
+    fetch(`${API_URL}${path}`, {
       mode: "cors",
       method: "GET",
     })
-      .then((response) => response.json())
-      .then((data) => {
-        const fetchedData = data.data;
-        setProjects(fetchedData);
+      .then((response) => {
+        if (response.status === 404) {
+          setNotFound(true);
+          return null;
+        }
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
       })
+      .then((result) => setData(result?.data))
       .catch((error) => setError(error.message))
       .finally(() => setLoading(false));
-  }, []);
-  return { loading, error, projects };
+  }, [path]);
+
+  return { loading, error, notFound, data };
+};
+
+const useFetchProjectsSpotlight = () => {
+  const { loading, error, data } = useFetchProjects(
+    "/api/projects/projects-spotlight"
+  );
+  return { loading, error, projects: data };
 };
 
 const useFetchProjectsPrev = () => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [projects, setProjects] = useState();
-
-  useEffect(() => {
-    fetch(`${API_URL}/api/projects/projects-preview`, {
-      mode: "cors",
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const fetchedData = data.data;
-        setProjects(fetchedData);
-      })
-      .catch((error) => setError(error.message))
-      .finally(() => setLoading(false));
-  }, []);
-  return { loading, error, projects };
+  const { loading, error, data } = useFetchProjects(
+    "/api/projects/projects-preview"
+  );
+  return { loading, error, projects: data };
 };
 
 const useFetchProjectById = (id) => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [project, setProject] = useState();
-
-  useEffect(() => {
-    fetch(`${API_URL}/api/projects/${id}`, {
-      mode: "cors",
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const fetchedData = data.data;
-        setProject(fetchedData);
-      })
-      .catch((error) => setError(error.message))
-      .finally(() => setLoading(false));
-  }, []);
-  return { loading, error, project };
+  const { loading, error, notFound, data } = useFetchProjects(
+    `/api/projects/${encodeURIComponent(id)}`
+  );
+  return { loading, error, notFound, project: data };
 };
 
 export { useFetchProjectsSpotlight, useFetchProjectsPrev, useFetchProjectById };

@@ -19,7 +19,7 @@ module.exports = createCoreController("api::service.service", ({ strapi }) => ({
                 examples: {
                   populate: {
                     imageItem: {
-                      fields: ["url", "alternativeText", "formats"],
+                      fields: ["url", "alternativeText", "formats", "width"],
                     },
                   },
                 },
@@ -54,6 +54,7 @@ module.exports = createCoreController("api::service.service", ({ strapi }) => ({
                       url: example.imageItem.url,
                       alternativeText: example.imageItem.alternativeText,
                       formats: example.imageItem.formats,
+                      width: example.imageItem.width,
                     }
                   : null,
               }))
