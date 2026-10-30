@@ -21,7 +21,7 @@ redir https://zorzon.com.ro{uri} permanent
 
 admin.zorzon.com.ro {
 reverse_proxy zorzon_backend:1338 {
-
+header_up X-Forwarded-Proto https
 }
 header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 }
@@ -37,5 +37,23 @@ header_up X-Forwarded-Proto https
 # Serve the test frontend
 
 test.zorzon.com.ro {
-reverse_proxy zorzon_frontend_test:80
+    handle_path /ar/* {
+        reverse_proxy zorzon_arviewer_test:5174 {
+            header_up Host localhost:5174
+        }
+
+    }
+    reverse_proxy zorzon_frontend_test:80
+}
+
+# Interior design and jewelry sites (same frontend, chosen by hostname)
+
+design.zorzon.com.ro {
+header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+reverse_proxy zorzon_frontend:80
+}
+
+jewelry.zorzon.com.ro {
+header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+reverse_proxy zorzon_frontend:80
 }
