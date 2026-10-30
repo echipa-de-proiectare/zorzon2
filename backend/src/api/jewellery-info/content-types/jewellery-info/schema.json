@@ -1,0 +1,22 @@
+{
+  "kind": "singleType",
+  "collectionName": "jewellery_infos",
+  "info": {
+    "singularName": "jewellery-info",
+    "pluralName": "jewellery-infos",
+    "displayName": "jewellery info",
+    "description": "Texts and WhatsApp number for jewellery.zorzon.com.ro"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "description": {
+      "type": "text"
+    },
+    "whatsapp": {
+      "type": "string"
+    }
+  }
+}

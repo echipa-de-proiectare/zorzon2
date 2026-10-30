@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
+import { DESIGN_URL, isJewellerySite, JEWELLERY_URL } from "../../site";
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
 const Footer = ({ about }) => {
   return (
     <footer className="footer">
       <div className="content has-text-centered">
-        <p>{about.description}</p>
+        {/* The description in Strapi is about the interior design studio */}
+        {!isJewellerySite && <p>{about.description}</p>}
         <div className="breadcrumb is-centered has-bullet-separator">
           <ul className="is-flex-direction-row is-align-items-center ">
             {about.contact.map((link) =>
@@ -28,6 +30,23 @@ const Footer = ({ about }) => {
                 </li>
               )
             )}
+          </ul>
+        </div>
+      </div>
+
+      <div className="content has-text-centered">
+        <div className="breadcrumb is-centered has-bullet-separator is-small">
+          <ul>
+            <li>
+              <a className="has-text-grey" href={`${DESIGN_URL}/design`}>
+                ZORZON Interior Design
+              </a>
+            </li>
+            <li>
+              <a className="has-text-grey" href={JEWELLERY_URL}>
+                ZORZON Jewellery Design
+              </a>
+            </li>
           </ul>
         </div>
       </div>

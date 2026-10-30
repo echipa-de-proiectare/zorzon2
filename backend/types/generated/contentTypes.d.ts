@@ -434,6 +434,68 @@ export interface ApiContactMessageContactMessage
   };
 }
 
+export interface ApiJewelJewel extends Struct.CollectionTypeSchema {
+  collectionName: 'jewels';
+  info: {
+    description: 'Pieces shown on jewellery.zorzon.com.ro';
+    displayName: 'jewel';
+    pluralName: 'jewels';
+    singularName: 'jewel';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    available: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    cover: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    images: Schema.Attribute.Media<'images', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::jewel.jewel'> &
+      Schema.Attribute.Private;
+    material: Schema.Attribute.String;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    price: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiJewelleryInfoJewelleryInfo extends Struct.SingleTypeSchema {
+  collectionName: 'jewellery_infos';
+  info: {
+    description: 'Texts and WhatsApp number for jewellery.zorzon.com.ro';
+    displayName: 'jewellery info';
+    pluralName: 'jewellery-infos';
+    singularName: 'jewellery-info';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::jewellery-info.jewellery-info'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    whatsapp: Schema.Attribute.String;
+  };
+}
+
 export interface ApiProjectProject extends Struct.CollectionTypeSchema {
   collectionName: 'projects';
   info: {
@@ -1011,6 +1073,8 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::about.about': ApiAboutAbout;
       'api::contact-message.contact-message': ApiContactMessageContactMessage;
+      'api::jewel.jewel': ApiJewelJewel;
+      'api::jewellery-info.jewellery-info': ApiJewelleryInfoJewelleryInfo;
       'api::project.project': ApiProjectProject;
       'api::service.service': ApiServiceService;
       'plugin::content-releases.release': PluginContentReleasesRelease;

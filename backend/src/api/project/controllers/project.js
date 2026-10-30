@@ -107,6 +107,7 @@ module.exports = createCoreController("api::project.project", ({ strapi }) => ({
 
     const pages = [
       { path: "/" },
+      { path: "/design" },
       { path: "/portofoliu" },
       { path: "/services-and-rates" },
       ...Projects.map((project) => ({

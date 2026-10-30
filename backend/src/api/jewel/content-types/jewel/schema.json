@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "jewels",
+  "info": {
+    "singularName": "jewel",
+    "pluralName": "jewels",
+    "displayName": "jewel",
+    "description": "Pieces shown on jewellery.zorzon.com.ro"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "material": {
+      "type": "string"
+    },
+    "price": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "available": {
+      "type": "boolean",
+      "default": true
+    },
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

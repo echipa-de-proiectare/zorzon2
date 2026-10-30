@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 import "../styles/Nav.css";
 
-const Nav = ({ about }) => {
+const Nav = ({ about, homePath, links }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const isMobile = () => window.innerWidth < 992; // Check if the current screen width is for mobile
@@ -33,7 +33,7 @@ const Nav = ({ about }) => {
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <Link className="navbar-item" to="/" onClick={onLogoClick}>
+        <Link className="navbar-item" to={homePath} onClick={onLogoClick}>
           <img src={`${API_URL}${logo}`} alt="ZorZon Logo" />
         </Link>
 
@@ -59,19 +59,22 @@ const Nav = ({ about }) => {
         className={`navbar-end navbar-menu ${isOpen ? "is-active" : ""}`}
       >
         <div className="navbar-end">
-          <Link className="navbar-item" to="/portofoliu" onClick={toggleIsOpen}>
-            PORTOFOLIU
-          </Link>
-          {/* <Link className="navbar-item" to="/contact" onClick={toggleIsOpen}>
-            CONTACT
-          </Link> */}
-          <Link
-            className="navbar-item"
-            to="/services-and-rates"
-            onClick={toggleIsOpen}
-          >
-            SERVICII
-          </Link>
+          {links.map((link) =>
+            link.href ? (
+              <a key={link.label} className="navbar-item" href={link.href}>
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.label}
+                className="navbar-item"
+                to={link.to}
+                onClick={toggleIsOpen}
+              >
+                {link.label}
+              </Link>
+            )
+          )}
         </div>
       </div>
     </nav>
@@ -82,6 +85,15 @@ Nav.propTypes = {
   about: PropTypes.shape({
     logo_secondary: PropTypes.shape({ url: PropTypes.string.isRequired }).isRequired,
   }).isRequired,
+  homePath: PropTypes.string.isRequired,
+  // Internal links use `to`, links to the other ZORZON site use `href`
+  links: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      to: PropTypes.string,
+      href: PropTypes.string,
+    })
+  ).isRequired,
 };
 
 export default Nav;

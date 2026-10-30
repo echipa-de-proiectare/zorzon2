@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://zorzon.com.ro/sitemap.xml
+Sitemap: https://jewellery.zorzon.com.ro/sitemap.xml

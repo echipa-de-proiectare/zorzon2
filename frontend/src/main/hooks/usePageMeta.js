@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { isJewellerySite, SITE_NAME, SITE_URL } from "../../site";
 
-const SITE_URL = "https://zorzon.com.ro";
-const DEFAULT_TITLE = "ZORZON";
-const DEFAULT_DESCRIPTION =
-  "Birou de arhitectura si design de interior din Timisoara, Romania.";
-const DEFAULT_IMAGE = `${SITE_URL}/logo1.jpg`;
+const DEFAULT_DESCRIPTION = isJewellerySite
+  ? "Bijuterii artizanale lucrate manual de ZORZON, în Timișoara."
+  : "Birou de arhitectura si design de interior din Timisoara, Romania.";
+const DEFAULT_IMAGE = "https://zorzon.com.ro/logo1.jpg";
 
 // Create the <meta>/<link> tag if index.html doesn't have it yet
 const setTag = (tagName, key, keyValue, attribute, value) => {
@@ -23,7 +23,7 @@ const usePageMeta = ({ title, description, image, noindex = false } = {}) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const fullTitle = title ? `${title} | ZORZON` : DEFAULT_TITLE;
+    const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
     const fullDescription = (description || DEFAULT_DESCRIPTION).slice(0, 160);
     const url = `${SITE_URL}${pathname}`;
     const imageUrl = image || DEFAULT_IMAGE;

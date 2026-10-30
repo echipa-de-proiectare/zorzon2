@@ -4,7 +4,7 @@ import Footer from "../main/components/Footer";
 import Nav from "../main/components/Nav";
 import { useEffect } from "react";
 
-const MainAppLayout = ({ about }) => {
+const MainAppLayout = ({ about, homePath, links }) => {
   useEffect(() => {
     // Add the class to the body element
     document.body.classList.add("has-navbar-fixed-top");
@@ -20,7 +20,7 @@ const MainAppLayout = ({ about }) => {
       className="is-flex is-flex-direction-column is-justify-content-space-between"
       style={{ height: "100%" }}
     >
-      <Nav about={about} />
+      <Nav about={about} homePath={homePath} links={links} />
       <div className="container is-max-desktop">
         <Outlet />
       </div>
@@ -31,6 +31,8 @@ const MainAppLayout = ({ about }) => {
 
 MainAppLayout.propTypes = {
   about: PropTypes.object.isRequired,
+  homePath: PropTypes.string.isRequired,
+  links: PropTypes.array.isRequired,
 };
 
 export default MainAppLayout;

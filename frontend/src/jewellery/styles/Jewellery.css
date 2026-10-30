@@ -1,0 +1,98 @@
+.jewellery-title {
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: clamp(1.1rem, 4.5vw, 1.5rem) !important;
+}
+
+/* Bulma pulls a subtitle up under a title; give the intro room instead */
+.jewellery-intro {
+  max-width: 32rem;
+  margin: 0.75rem auto 2.5rem !important;
+  color: #6b6b6b;
+  line-height: 1.6;
+}
+
+.jewellery-empty {
+  color: #6b6b6b;
+  padding: 3rem 0;
+}
+
+.jewel-card {
+  text-align: left;
+}
+
+.jewel-card figure {
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.jewel-card img {
+  transition: transform 0.4s ease;
+}
+
+.jewel-card:hover img {
+  transform: scale(1.03);
+}
+
+.jewel-card-text {
+  padding: 0.75rem 0.1rem 0.5rem;
+}
+
+.jewel-name {
+  font-weight: 500;
+}
+
+.jewel-material {
+  color: #7a7a7a;
+  font-size: 0.875rem;
+}
+
+.jewel-price {
+  margin-top: 0.25rem;
+}
+
+.jewel-sold {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.15rem 0.6rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.jewel-gallery {
+  border-radius: 4px;
+  --swiper-pagination-color: #4a4a4a;
+}
+
+/* Project.css makes every .swiper-slide a flex row, which shrinks the
+   aspect-ratio figure to zero width */
+.jewel-gallery figure {
+  width: 100%;
+}
+
+.jewel-details .title {
+  margin-bottom: 0.5rem;
+}
+
+.jewel-details .jewel-price {
+  margin: 1rem 0;
+}
+
+.jewel-description {
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+.whatsapp-button {
+  margin-bottom: 1.5rem;
+}
+
+.jewel-back {
+  color: #7a7a7a;
+  font-size: 0.875rem;
+}
