@@ -2,6 +2,7 @@ services:
   caddy:
     image: caddy:latest
     container_name: caddy
+    restart: unless-stopped
     platform: linux/arm64 # Ensuring compatibility with ARM-based systems
     networks:
       - zorzon
