@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import LoadingIcon from "../../elements/loadingIcon";
 import ErrorMessage from "../../elements/ErrorMessage";
 import usePageMeta from "../hooks/usePageMeta";
-import { imageSrcSet, imageUrl } from "../utils/images";
+import { imageFallbackUrl, imageSrcSet } from "../utils/images";
 import useFetchServices from "../hooks/useFetchServices";
 import "../styles/Services.css";
 import {
@@ -183,7 +183,7 @@ const Services: React.FC = () => {
                         <div className="carousel-container">
                           <div className="carousel-image-container">
                             <img
-                              src={imageUrl(currentExample.imageItem)}
+                              src={imageFallbackUrl(currentExample.imageItem, 1000)}
                               srcSet={imageSrcSet(currentExample.imageItem)}
                               sizes="(max-width: 768px) 100vw, 640px"
                               alt={

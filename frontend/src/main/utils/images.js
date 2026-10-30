@@ -2,18 +2,12 @@ const API_URL = import.meta.env.VITE_API_URL; // Access the environment variable
 
 const FORMATS = ["thumbnail", "small", "medium", "large", "xlarge"];
 
-// Absolute URL of a Strapi image
-export const imageUrl = (image) => `${API_URL}${image.url}`;
-
-// Build a srcSet from the widths Strapi actually generated for this image
+// Build a srcSet from the widths Strapi actually generated for this image.
+// The original is left out on purpose: it can be several MB.
 export const imageSrcSet = (image) => {
   const sources = FORMATS.map((format) => image.formats?.[format])
     .filter((source) => source?.url && source?.width)
     .map((source) => ({ url: source.url, width: source.width }));
-
-  if (image.width) {
-    sources.push({ url: image.url, width: image.width });
-  }
 
   return sources
     .sort((a, b) => a.width - b.width)

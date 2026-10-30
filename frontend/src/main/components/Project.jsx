@@ -4,7 +4,7 @@ import LoadingIcon from "../../elements/loadingIcon";
 import ErrorMessage from "../../elements/ErrorMessage";
 import usePageMeta from "../hooks/usePageMeta";
 import { useEffect, useState } from "react";
-import { imageFallbackUrl, imageSrcSet, imageUrl } from "../utils/images";
+import { imageFallbackUrl, imageSrcSet } from "../utils/images";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -107,7 +107,7 @@ function Project() {
                   <figure className="image">
                     <img
                       loading="lazy"
-                      src={imageUrl(image)}
+                      src={imageFallbackUrl(image, 1000)}
                       srcSet={imageSrcSet(image)}
                       sizes="(max-width: 768px) 100vw, 640px"
                       alt={image.alternativeText || project.name}
