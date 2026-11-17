@@ -1,9 +1,9 @@
 import usePageMeta from "../../main/hooks/usePageMeta";
-import { DESIGN_URL, WHATSAPP_CATALOG_URL } from "../../site";
+import { WHATSAPP_CATALOG_URL } from "../../site";
 import "../styles/Jewelry.css";
 
-// jewelry.zorzon.com.ro: tells visitors the collection is on WhatsApp
-// before they leave the site
+// jewelry.zorzon.com.ro: points visitors to the WhatsApp catalog, so they
+// know they are leaving the site
 function WhatsAppCatalog() {
   usePageMeta({
     title: "Catalog pe WhatsApp",
@@ -15,17 +15,10 @@ function WhatsAppCatalog() {
     <div className="section has-text-centered catalog-notice">
       <h1 className="title is-4 jewelry-title">ZORZON Jewelry</h1>
       <p className="catalog-text">
-        Colecția de bijuterii artizanale se află în catalogul nostru de pe
-        WhatsApp.
+        Colecția noastră de bijuterii artizanale se află&nbsp;în
       </p>
-      <p className="catalog-leaving">
-        Linkul de mai jos te duce în afara site-ului zorzon.com.ro, pe WhatsApp.
-      </p>
-      <a className="button is-dark catalog-button" href={WHATSAPP_CATALOG_URL}>
-        Mergi la catalogul WhatsApp
-      </a>
-      <a className="catalog-back" href={DESIGN_URL}>
-        ← Înapoi la ZORZON Design
+      <a className="button is-dark" href={WHATSAPP_CATALOG_URL}>
+        Catalogul WhatsApp
       </a>
     </div>
   );
