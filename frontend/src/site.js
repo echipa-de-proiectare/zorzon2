@@ -17,8 +17,11 @@ export const isChoiceSite = !subdomain;
 
 export const ROOT_URL = `${protocol}//${rootHost}${portSuffix}`;
 export const DESIGN_URL = `${protocol}//design.${rootHost}${portSuffix}`;
-// ZORZON Jewelry is the WhatsApp catalog; jewelry.zorzon.com.ro redirects there
-export const JEWELRY_URL = "https://wa.me/c/40731893528";
+export const JEWELRY_URL = `${protocol}//jewelry.${rootHost}${portSuffix}`;
+
+// ZORZON Jewelry is the WhatsApp catalog for now; jewelry.zorzon.com.ro
+// says so before sending visitors there
+export const WHATSAPP_CATALOG_URL = "https://wa.me/c/40731893528";
 
 // Canonical addresses for SEO, always the production ones
 export const SITE_URL = subdomain

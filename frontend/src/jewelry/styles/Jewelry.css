@@ -96,3 +96,33 @@
   color: #7a7a7a;
   font-size: 0.875rem;
 }
+
+.catalog-notice {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.catalog-text {
+  max-width: 28rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.catalog-leaving {
+  max-width: 28rem;
+  margin-bottom: 2rem;
+  font-size: 0.875rem;
+  color: #7a7a7a;
+}
+
+.catalog-button {
+  margin-bottom: 1.5rem;
+}
+
+.catalog-back {
+  color: #7a7a7a;
+  font-size: 0.875rem;
+}

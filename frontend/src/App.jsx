@@ -10,8 +10,7 @@ import ScrollToTop from "./main/components/utility/ScrollToTop";
 import { useEffect } from "react";
 import Services from "./main/components/Services";
 import Choice from "./main/components/Choice";
-import JewelryHome from "./jewelry/components/JewelryHome";
-import Jewel from "./jewelry/components/Jewel";
+import WhatsAppCatalog from "./jewelry/components/WhatsAppCatalog";
 import MovedToDesign from "./main/components/utility/MovedToDesign";
 import { isChoiceSite, isDesignSite, isJewelrySite } from "./site";
 
@@ -47,9 +46,9 @@ function App() {
       {isJewelrySite && (
         <Routes>
           <Route element={<MainAppLayout about={about} links={[]} />}>
-            <Route index element={<JewelryHome />} />
-            <Route path="piesa/:id" element={<Jewel />} />
-            <Route path="*" element={<JewelryHome />} />
+            {/* The collection is in the WhatsApp catalog for now; the
+                JewelryHome and Jewel pages stay ready for later */}
+            <Route path="*" element={<WhatsAppCatalog />} />
           </Route>
         </Routes>
       )}
